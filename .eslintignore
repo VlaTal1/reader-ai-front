@@ -1,0 +1,6 @@
+/.expo
+node_modules
+android
+.idea
+.tamagui
+jest.setup.js
