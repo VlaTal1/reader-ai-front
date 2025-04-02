@@ -1,21 +1,16 @@
-import {useRouter} from "expo-router";
-import React, {useState} from "react";
+import React from "react";
 import {View} from "tamagui";
 import {BackHandler} from "react-native";
 import {useBackHandler} from "@react-native-community/hooks";
+
 import CustomStackScreen from "@/components/CustomStackScreen";
 import {CustomText} from "@/components/CustomText";
 
 const Home = () => {
-    const router = useRouter();
-
     useBackHandler(() => {
         BackHandler.exitApp();
         return true;
     })
-
-    const [isBurgerOpen, setIsBurgerOpen] = useState(false)
-    const [isUploadBillModalOpen, setIsUploadBillModalOpen] = useState(false)
 
     return (
         <>
