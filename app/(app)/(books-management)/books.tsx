@@ -13,7 +13,7 @@ import Header from "@/components/Header";
 import HeaderButton from "@/components/buttons/HeaderButton";
 import BookButton from "@/components/buttons/BookButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
-import AddBookModal from "@/components/modal/add-item-modal";
+import AddBookModal from "@/components/modal/add-book-modal";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 
 const Books = () => {
