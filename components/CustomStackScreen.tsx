@@ -7,9 +7,9 @@ const CustomStackScreen = (props: React.ComponentProps<typeof Stack.Screen>) => 
             {...props}
             options={{
                 headerShown: false,
-                animation: "fade",
+                animation: "flip",
                 animationDuration: 500,
-                contentStyle: {backgroundColor: "transparent"},
+                contentStyle: {backgroundColor: "#E0E0DC"},
                 ...(props.options || {}),
             }}
         />

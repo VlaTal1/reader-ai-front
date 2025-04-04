@@ -1,12 +1,12 @@
 import {getLocales} from "expo-localization";
 import {I18n} from "i18n-js";
 
-import de from "@/localization/de";
 import en from "@/localization/en";
+import ua from "@/localization/ua";
 
 const messages = {
     en: en,
-    de: de,
+    ua: ua,
 };
 
 const i18n = new I18n(messages);

@@ -1,12 +1,16 @@
 import React from "react";
-import {View} from "tamagui";
-import {BackHandler} from "react-native";
+import {View, XStack} from "tamagui";
+import {Alert, BackHandler} from "react-native";
 import {useBackHandler} from "@react-native-community/hooks";
+import {useRouter} from "expo-router";
 
 import CustomStackScreen from "@/components/CustomStackScreen";
-import {CustomText} from "@/components/CustomText";
+import {HomeMenuCard} from "@/components/home/HomeMenuCard";
+import i18n from "@/localization/i18n";
 
 const Home = () => {
+    const router = useRouter();
+
     useBackHandler(() => {
         BackHandler.exitApp();
         return true;
@@ -15,15 +19,17 @@ const Home = () => {
     return (
         <>
             <CustomStackScreen/>
-            <View height="100%" padding={16} flexDirection="column">
-                <CustomText
-                    color="$gray-40"
-                    size="p1Light"
-                    textAlign="center"
-                    width="100%"
-                >
-                    Hello
-                </CustomText>
+            <View padding={16} flexDirection="column">
+                <XStack flexDirection="column" gap={6}>
+                    <HomeMenuCard
+                        title={i18n.t("books")}
+                        onPress={() => router.navigate("/books")}
+                    />
+                    <HomeMenuCard
+                        title={i18n.t("children")}
+                        onPress={() => Alert.alert("Will be implemented later")}
+                    />
+                </XStack>
             </View>
         </>
     )
