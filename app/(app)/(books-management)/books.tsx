@@ -23,10 +23,6 @@ const Books = () => {
 
     const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
 
-    useEffect(() => {
-        console.log(books)
-    }, [books]);
-
     const onCancel = useCallback(() => {
         router.back();
     }, [router]);
@@ -113,6 +109,7 @@ const Books = () => {
             <AddBookModal
                 onClose={() => setIsAddBookModalOpen(false)}
                 isOpen={isAddBookModalOpen}
+                onSave={invokeFetchBooks}
             />
         </>
     )
