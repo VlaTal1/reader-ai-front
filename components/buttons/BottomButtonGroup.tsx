@@ -2,13 +2,14 @@ import React from "react";
 import {LinearGradient} from "expo-linear-gradient";
 
 type Props = {
+    gradientColors?: readonly [string, string, ...string[]];
     children: React.ReactNode;
 }
 
-const BottomButtonGroup: React.FC<Props> = ({children}) => {
+const BottomButtonGroup: React.FC<Props> = ({children, gradientColors}) => {
     return (
         <LinearGradient
-            colors={["transparent", "rgba(255,255,255,1)"]}
+            colors={gradientColors ? gradientColors : ["transparent", "rgba(255,255,255,1)"]}
             style={{
                 position: "absolute",
                 bottom: 0,

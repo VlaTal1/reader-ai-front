@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import {ScrollView, XStack, YStack} from "tamagui";
-import {Alert, FlatList, RefreshControl} from "react-native";
+import {FlatList, RefreshControl} from "react-native";
 
 import {Book} from "@/types/Book";
 import useApi from "@/hooks/useApi";
@@ -11,10 +11,10 @@ import i18n from "@/localization/i18n";
 import CustomStackScreen from "@/components/CustomStackScreen";
 import Header from "@/components/Header";
 import HeaderButton from "@/components/buttons/HeaderButton";
-import BookButton from "@/components/buttons/BookButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import AddBookModal from "@/components/modal/add-book-modal";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
+import BookButton from "@/components/buttons/BookButton";
 
 const Books = () => {
     const router = useRouter();
@@ -93,9 +93,9 @@ const Books = () => {
                         data={books}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => (
-                            <BookButton book={item} onPress={() => Alert.alert("Will be implemented later")}/>
+                            <BookButton key={item.id} book={item} onPress={() => router.navigate(`/reader/${item.id}`)}/>
                         )}
-                     />
+                    />
                 </ScrollView>
             </YStack>
 

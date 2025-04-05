@@ -57,7 +57,7 @@ export interface RequestConfig {
     };
 }
 
-const getApiBaseUrl = (): string => {
+export const getApiBaseUrl = (): string => {
     const envVars = Constants.expoConfig?.extra;
     if (!envVars?.["apiBaseUrl"]) {
         throw new Error("API base URL is not set");

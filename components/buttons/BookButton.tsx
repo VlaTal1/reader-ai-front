@@ -9,8 +9,7 @@ type Props = {
     onPress: () => void
     disabled?: boolean
 }
-
-export const BookButton: FC<Props> = ({book, onPress, disabled = false}) => {
+const BookButton: FC<Props> = ({book, onPress, disabled = false}) => {
     return (
         <ThemeableStack
             pressStyle={{
