@@ -83,19 +83,21 @@ const Books = () => {
                         />
                     }
                 >
-                    <FlatList
-                        numColumns={1}
-                        contentContainerStyle={{
-                            marginVertical: 11,
-                            gap: 8,
-                        }}
-                        scrollEnabled={false}
-                        data={books}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => (
-                            <BookButton key={item.id} book={item} onPress={() => router.navigate(`/reader/${item.id}`)}/>
-                        )}
-                    />
+                    <YStack flex={1} height="100%" paddingBottom={80}>
+                        <FlatList
+                            numColumns={1}
+                            contentContainerStyle={{
+                                marginVertical: 11,
+                                gap: 8,
+                            }}
+                            scrollEnabled={false}
+                            data={books}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({item}) => (
+                                <BookButton key={item.id} book={item} onPress={() => router.navigate(`/reader/${item.id}`)}/>
+                            )}
+                        />
+                    </YStack>
                 </ScrollView>
             </YStack>
 
