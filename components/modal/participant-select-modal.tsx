@@ -1,7 +1,6 @@
 import React, {FC, useCallback, useEffect, useState} from "react";
 import {XStack} from "tamagui";
 import {ActivityIndicator} from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import i18n from "@/localization/i18n";
 import Modal from "@/components/modal/index";
@@ -20,7 +19,7 @@ type Props = {
     onSelect: (childId: string) => void;
 }
 
-const SwitchParticipantModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
+const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
     const {keyboardVisible, availableContentHeight} = useWindow()
 
     const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false)
@@ -61,7 +60,6 @@ const SwitchParticipantModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
     }, [onClose]);
 
     const handleSelect = useCallback(async (participantId: number) => {
-        await AsyncStorage.setItem("participantId", String(participantId));
         onSelect(participantId.toString())
         onClose()
     }, [onClose]);
@@ -111,4 +109,4 @@ const SwitchParticipantModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
     )
 }
 
-export default SwitchParticipantModal
+export default ParticipantSelectModal

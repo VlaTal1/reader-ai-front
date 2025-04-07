@@ -11,7 +11,7 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import i18n from "@/localization/i18n";
 import {CustomText} from "@/components/CustomText";
 import ProfileIcon from "@/assets/images/icons/profile-icon.svg";
-import SwitchParticipantModal from "@/components/modal/switch-participant-modal";
+import ParticipantSelectModal from "@/components/modal/participant-select-modal";
 import {UserMode, useUserMode} from "@/hooks/userModeContext";
 
 type Props = {
@@ -98,7 +98,7 @@ const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
                 </View>
             </Modal>
 
-            <SwitchParticipantModal
+            <ParticipantSelectModal
                 onClose={() => setIsSwitchParticipantModalOpen(false)}
                 isOpen={isSwitchParticipantModalOpen}
                 onSelect={handleChildSelect}
