@@ -52,7 +52,7 @@ const Home = () => {
                     />
                     <HomeMenuCard
                         title={i18n.t("children")}
-                        onPress={() => Alert.alert("Will be implemented later")}
+                        onPress={() => router.navigate("/participants")}
                     />
                     <HomeMenuCard
                         title={i18n.t("switch_user_mode")}

@@ -11,7 +11,6 @@ const participantApi = {
             body: participant,
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "multipart/json",
             },
         });
     },
