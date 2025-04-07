@@ -20,6 +20,11 @@ const bookApi = {
             path: "/api/books",
         });
     },
+    fetchBooksByParticipantId: async (participantId: string): Promise<ApiResponse<Book[]>> => {
+        return apiRequest<Book[]>({
+            path: `/api/books/participant/${participantId}`,
+        });
+    },
     fetchBookById: async ({bookId}: {
         bookId: string;
     }): Promise<ApiResponse<Book>> => {

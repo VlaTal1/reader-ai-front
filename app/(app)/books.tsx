@@ -15,8 +15,10 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import AddBookModal from "@/components/modal/add-book-modal";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 import BookButton from "@/components/buttons/BookButton";
+import {useUserMode} from "@/hooks/userModeContext";
 
 const Books = () => {
+    const {childId, isChildMode} = useUserMode();
     const router = useRouter();
 
     const [books, setBooks] = useState<Book[]>([]);
@@ -52,9 +54,33 @@ const Books = () => {
         },
     );
 
+    const fetchBooksByParticipantIdApi = useApi(
+        bookApi.fetchBooksByParticipantId,
+        {
+            onSuccess: (data) => {
+                setBooks(data);
+            },
+            errorHandler: {
+                title: i18n.t("error"),
+                message: `${i18n.t("failed_to_fetch_books")}\n${i18n.t("please_try_again_later")}`,
+                options: {
+                    tryAgain: true,
+                    cancel: true,
+                    navigate: {
+                        mode: "back",
+                    },
+                },
+            },
+        },
+    );
+
     const invokeFetchBooks = useCallback(() => {
-        fetchBooksApi.execute();
-    }, [fetchBooksApi]);
+        if (isChildMode && childId) {
+            fetchBooksByParticipantIdApi.execute(childId.toString())
+        } else {
+            fetchBooksApi.execute();
+        }
+    }, [childId, fetchBooksApi, fetchBooksByParticipantIdApi, isChildMode]);
 
     useEffect(() => {
         invokeFetchBooks()
@@ -94,7 +120,8 @@ const Books = () => {
                             data={books}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (
-                                <BookButton key={item.id} book={item} onPress={() => router.navigate(`/book/${item.id}`)}/>
+                                <BookButton key={item.id} book={item}
+                                            onPress={() => router.navigate(`/book/${item.id}`)}/>
                             )}
                         />
                     </YStack>
