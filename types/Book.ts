@@ -1,3 +1,5 @@
+import {Access} from "@/types/Access";
+
 export type Book = {
     id: number;
     title: string;
@@ -6,4 +8,5 @@ export type Book = {
     originalFileName: string;
     fileSize: number;
     fileType: string;
+    accesses: Access[]
 }

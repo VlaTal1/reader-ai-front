@@ -20,6 +20,13 @@ const bookApi = {
             path: "/api/books",
         });
     },
+    fetchBookById: async ({bookId}: {
+        bookId: string;
+    }): Promise<ApiResponse<Book>> => {
+        return apiRequest<Book>({
+            path: `/api/books/${bookId}`,
+        });
+    },
 };
 
 export default bookApi;

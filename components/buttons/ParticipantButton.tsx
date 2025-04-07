@@ -6,7 +6,7 @@ import {Participant} from "@/types/Paticipant";
 
 type Props = {
     participant: Participant
-    onPress: () => void
+    onPress?: () => void
     disabled?: boolean
 }
 const ParticipantButton: FC<Props> = ({participant, onPress, disabled = false}) => {

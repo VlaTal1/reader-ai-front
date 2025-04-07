@@ -27,6 +27,9 @@ const en = {
     "add_child": "Add child",
     "failed_to_save_child": "Failed to add child",
     "logout": "Logout",
+    "list_of_accesses": "List of accesses",
+    "failed_to_grant_access": "Failed to grant access",
+    "grant_access": "Grant access",
 };
 
 export default en;

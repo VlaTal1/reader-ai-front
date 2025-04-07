@@ -94,7 +94,7 @@ const Books = () => {
                             data={books}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (
-                                <BookButton key={item.id} book={item} onPress={() => router.navigate(`/reader/${item.id}`)}/>
+                                <BookButton key={item.id} book={item} onPress={() => router.navigate(`/book/${item.id}`)}/>
                             )}
                         />
                     </YStack>
