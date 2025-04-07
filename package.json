@@ -25,6 +25,7 @@
     "dotenv": "^16.4.5",
     "epubjs": "^0.3.93",
     "expo": "~52.0.41",
+    "expo-application": "^6.0.2",
     "expo-blur": "~14.0.3",
     "expo-build-properties": "~0.13.2",
     "expo-constants": "~17.0.8",

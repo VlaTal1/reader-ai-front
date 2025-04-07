@@ -19,6 +19,9 @@ const en = {
     "discard_book_adding_modal_description": "All changes made to the book will not be saved, do you want to continue?",
     "no": "No",
     "yes": "Yes",
+    "failed_to_fetch_children": "Failed to fetch children",
+    "select_child": "Select child",
+    "switch_user_mode": "Switch user mode",
 };
 
 export default en;
