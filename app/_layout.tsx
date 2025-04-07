@@ -8,6 +8,7 @@ import {useFonts} from "expo-font";
 import tamaguiConfig from "@/styles/tamagui.config";
 import {LanguageProvider} from "@/components/provider/LanguageProvider";
 import {SupabaseAuthProvider} from "@/auth/SupabaseAuthProvider";
+import {UserModeProvider} from "@/hooks/userModeContext";
 
 // Root layout. Accessible for both authenticated and not users.
 // In future public pages should be added in app directory.
@@ -38,13 +39,15 @@ export default function Root() {
             <TamaguiProvider config={tamaguiConfig} defaultTheme={colorScheme!}>
                 {/*<Provider store={store}>*/}
                 <SupabaseAuthProvider>
-                    <ImageBackground
-                        style={[styles.backgroundImage, {backgroundColor}]}
-                    >
-                        <SafeAreaView style={[styles.safeArea]}>
-                            <Slot/>
-                        </SafeAreaView>
-                    </ImageBackground>
+                    <UserModeProvider>
+                        <ImageBackground
+                            style={[styles.backgroundImage, {backgroundColor}]}
+                        >
+                            <SafeAreaView style={[styles.safeArea]}>
+                                <Slot/>
+                            </SafeAreaView>
+                        </ImageBackground>
+                    </UserModeProvider>
                 </SupabaseAuthProvider>
                 {/*</Provider>*/}
             </TamaguiProvider>

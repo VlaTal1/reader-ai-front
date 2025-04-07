@@ -17,9 +17,10 @@ import ArrowRightIcon from "@/assets/images/icons/next-icon.svg";
 type Props = {
     onClose: () => void;
     isOpen: boolean;
+    onSelect: (childId: string) => void;
 }
 
-const SwitchParticipantModal: FC<Props> = ({onClose, isOpen}) => {
+const SwitchParticipantModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
     const {keyboardVisible, availableContentHeight} = useWindow()
 
     const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false)
@@ -50,8 +51,10 @@ const SwitchParticipantModal: FC<Props> = ({onClose, isOpen}) => {
     }, [fetchAllParticipantApi]);
 
     useEffect(() => {
-        invokeFetchAllParticipants()
-    }, []);
+        if (isOpen) {
+            invokeFetchAllParticipants()
+        }
+    }, [isOpen]);
 
     const onCancel = useCallback(() => {
         onClose();
@@ -59,6 +62,7 @@ const SwitchParticipantModal: FC<Props> = ({onClose, isOpen}) => {
 
     const handleSelect = useCallback(async (participantId: number) => {
         await AsyncStorage.setItem("participantId", String(participantId));
+        onSelect(participantId.toString())
         onClose()
     }, [onClose]);
 

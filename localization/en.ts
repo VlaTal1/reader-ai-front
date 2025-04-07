@@ -21,10 +21,12 @@ const en = {
     "yes": "Yes",
     "failed_to_fetch_children": "Failed to fetch children",
     "select_child": "Select child",
-    "switch_user_mode": "Switch user mode",
+    "switch_to_child_mode": "Switch to child mode",
+    "switch_to_parent_mode": "Switch to parent mode",
     "child_name": "Child name",
     "add_child": "Add child",
     "failed_to_save_child": "Failed to add child",
+    "logout": "Logout",
 };
 
 export default en;

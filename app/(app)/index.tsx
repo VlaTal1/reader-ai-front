@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {View, XStack} from "tamagui";
+import React, {useState} from "react";
+import {Circle, View, XStack} from "tamagui";
 import {Alert, BackHandler} from "react-native";
 import {useBackHandler} from "@react-native-community/hooks";
 import {useRouter} from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import BurgerIcon from "@/assets/images/icons/burger-icon.svg";
 import CustomStackScreen from "@/components/CustomStackScreen";
 import {HomeMenuCard} from "@/components/home/HomeMenuCard";
 import i18n from "@/localization/i18n";
 import BurgerMenu from "@/components/BurgerMenu";
-import SwitchParticipantModal from "@/components/modal/switch-participant-modal";
+import {useUserMode} from "@/hooks/userModeContext";
 
 const Home = () => {
+    const {isParentMode} = useUserMode();
     const router = useRouter();
 
     useBackHandler(() => {
@@ -20,44 +21,48 @@ const Home = () => {
     })
 
     const [isBurgerOpen, setIsBurgerOpen] = useState(false)
-    const [isSwitchParticipantModalOpen, setIsSwitchParticipantModalOpen] = useState(false)
-    const [userMode, setUserMode] = useState<string | undefined>(undefined)
-
-    useEffect(() => {
-        const loadUserMode = async () => {
-            const mode = await AsyncStorage.getItem("userMode");
-            if (mode) {
-                setUserMode(mode);
-            }
-        };
-        loadUserMode();
-    }, []);
-
-    const handleSwitchMode = () => {
-        if (userMode === "child") {
-            AsyncStorage.setItem("userMode", "parent");
-        } else {
-            setIsSwitchParticipantModalOpen(true)
-        }
-    }
 
     return (
         <>
             <CustomStackScreen/>
             <View padding={16} flexDirection="column" flex={1} justifyContent="flex-end">
+                <View
+                    flex={1}
+                    flexDirection="column"
+                    position="relative"
+                >
+                    <XStack
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={10}
+                        zIndex={100}
+                    >
+                        <Circle
+                            pressStyle={{opacity: 0.5}}
+                            backgroundColor="transparent"
+                            borderColor="$gray-60"
+                            borderWidth={1}
+                            padding={16}
+                            onPress={() => setIsBurgerOpen(true)}
+                        >
+                            <BurgerIcon width={24} height={24} fill="#333333"/>
+                        </Circle>
+                    </XStack>
+                </View>
                 <XStack flexDirection="column" gap={6}>
                     <HomeMenuCard
                         title={i18n.t("books")}
                         onPress={() => router.navigate("/books")}
                     />
-                    <HomeMenuCard
-                        title={i18n.t("children")}
-                        onPress={() => router.navigate("/participants")}
-                    />
-                    <HomeMenuCard
-                        title={i18n.t("switch_user_mode")}
-                        onPress={handleSwitchMode}
-                    />
+                    {isParentMode && (
+                        <HomeMenuCard
+                            title={i18n.t("children")}
+                            onPress={() => router.navigate("/participants")}
+                        />
+                    )}
                 </XStack>
             </View>
 
@@ -65,11 +70,6 @@ const Home = () => {
                 isOpen={isBurgerOpen}
                 onClose={() => setIsBurgerOpen(false)}
                 onLogout={() => Alert.alert("Will be implemented later")}
-            />
-
-            <SwitchParticipantModal
-                onClose={() => setIsSwitchParticipantModalOpen(false)}
-                isOpen={isSwitchParticipantModalOpen}
             />
         </>
     )

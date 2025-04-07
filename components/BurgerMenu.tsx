@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {View, YStack} from "tamagui";
 import {TouchableOpacity} from "react-native";
 import Modal from "react-native-modal";
 import * as Application from "expo-application";
 import Constants from "expo-constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ListButton from "@/components/buttons/ListButton";
-import ArrowRightIcon from "@/assets/images/icons/next-icon.svg";
 import CloseIcon from "@/assets/images/icons/close-icon.svg";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import i18n from "@/localization/i18n";
 import {CustomText} from "@/components/CustomText";
 import ProfileIcon from "@/assets/images/icons/profile-icon.svg";
 import SwitchParticipantModal from "@/components/modal/switch-participant-modal";
+import {UserMode, useUserMode} from "@/hooks/userModeContext";
 
 type Props = {
     isOpen: boolean;
@@ -22,28 +21,25 @@ type Props = {
 }
 
 const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
+    const {setActiveChildId, changeUserMode, userMode, isChildMode} = useUserMode();
+
     const version = Constants.expoConfig?.version;
     const buildNumber = Application.nativeBuildVersion;
 
     const [isSwitchParticipantModalOpen, setIsSwitchParticipantModalOpen] = useState(false)
-    const [userMode, setUserMode] = useState<string | undefined>(undefined)
 
-    useEffect(() => {
-        const loadUserMode = async () => {
-            const mode = await AsyncStorage.getItem("userMode");
-            if (mode) {
-                setUserMode(mode);
-            }
-        };
-        loadUserMode();
-    }, []);
-
-    const handleSwitchMode = () => {
-        if (userMode === "child") {
-            AsyncStorage.setItem("userMode", "parent");
+    const handleSwitchMode = async () => {
+        if (isChildMode) {
+            await changeUserMode(UserMode.PARENT);
         } else {
             setIsSwitchParticipantModalOpen(true)
         }
+        onClose();
+    }
+
+    const handleChildSelect = async (childId: string) => {
+        await setActiveChildId(childId);
+        await changeUserMode(UserMode.CHILD)
         onClose();
     }
 
@@ -86,15 +82,10 @@ const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
                         >
                             <ListButton
                                 onPress={handleSwitchMode}
-                                text={i18n.t("burger_profile")}
+                                text={i18n.t(`${userMode === UserMode.PARENT ? "switch_to_child_mode" : "switch_to_parent_mode"}`)}
                                 icon={ProfileIcon}
                                 iconColor="#333333"
-                                rightPart={(
-                                    <ArrowRightIcon
-                                        fill="#333333"
-                                        onPress={handleSwitchMode}
-                                    />
-                                )}
+                                delimiter={false}
                             />
                         </YStack>
                         <YStack>
@@ -110,6 +101,7 @@ const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
             <SwitchParticipantModal
                 onClose={() => setIsSwitchParticipantModalOpen(false)}
                 isOpen={isSwitchParticipantModalOpen}
+                onSelect={handleChildSelect}
             />
         </>
     )
