@@ -30,6 +30,7 @@ const en = {
     "list_of_accesses": "List of accesses",
     "failed_to_grant_access": "Failed to grant access",
     "grant_access": "Grant access",
+    "read": "Read",
 };
 
 export default en;

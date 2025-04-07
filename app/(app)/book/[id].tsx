@@ -17,8 +17,10 @@ import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import ParticipantSelectModal from "@/components/modal/participant-select-modal";
 import accessApi from "@/api/endpoints/accessApi";
+import {useUserMode} from "@/hooks/userModeContext";
 
 const BookDetails = () => {
+    const {isParentMode} = useUserMode();
     const {id} = useLocalSearchParams();
     const router = useRouter();
 
@@ -77,10 +79,6 @@ const BookDetails = () => {
         invokeFetchBookApi()
     }, []);
 
-    useEffect(() => {
-        console.log(fetchBookByIdApi.loading)
-    }, [fetchBookByIdApi.loading]);
-
     const handleChildSelect = useCallback(async (childId: string) => {
         if (book) {
             await grantAccessApi.execute({
@@ -89,6 +87,29 @@ const BookDetails = () => {
             })
         }
     }, [book, grantAccessApi]);
+
+    if (fetchBookByIdApi.loading || !book) {
+        return (
+            <>
+                <CustomStackScreen/>
+                <YStack flex={1}>
+                    <Header backgroundColor="transparent">
+                        <XStack justifyContent="space-between" width="100%">
+                            <HeaderButton
+                                onPress={onCancel}
+                                backgroundColor="transparent"
+                                color="$gray-20"
+                                text={i18n.t("back")}
+                            />
+                        </XStack>
+                    </Header>
+                    <YStack flex={1} justifyContent="center" alignItems="center">
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    </YStack>
+                </YStack>
+            </>
+        )
+    }
 
     return (
         <>
@@ -105,36 +126,41 @@ const BookDetails = () => {
                     </XStack>
                 </Header>
 
-                {fetchBookByIdApi.loading || !book ? (
-                    <ActivityIndicator size="large" color="#0000ff"/>
-                ) : (
-                    <YStack flex={1} paddingHorizontal={16} gap={20}>
-                        <YStack>
-                            <CustomText size="h2">
-                                {book.title}
-                            </CustomText>
-                            <CustomText size="h3Regular">
-                                {book.author}
-                            </CustomText>
-                        </YStack>
+                <YStack flex={1} paddingHorizontal={16} gap={20}>
+                    <YStack>
+                        <CustomText size="h2">
+                            {book.title}
+                        </CustomText>
+                        <CustomText size="h3Regular">
+                            {book.author}
+                        </CustomText>
+                    </YStack>
+                    {isParentMode && (
                         <YStack>
                             <CustomText size="h4Regular" width="100%" textAlign="center">
                                 {i18n.t("list_of_accesses")}
                             </CustomText>
                             {
                                 book.accesses.map((access) => (
-                                    <ParticipantButton key={access.participant.id} participant={access.participant}/>
+                                    <ParticipantButton key={access.participant.id}
+                                                       participant={access.participant}/>
                                 ))
                             }
                         </YStack>
-                    </YStack>
-                )}
+                    )}
+                </YStack>
             </YStack>
 
             <BottomButtonGroup>
+                {isParentMode && (
+                    <PrimaryButton
+                        onPress={() => setIsParticipantSelectModalOpen(true)}
+                        text={i18n.t("grant_access")}
+                    />
+                )}
                 <PrimaryButton
-                    onPress={() => setIsParticipantSelectModalOpen(true)}
-                    text={i18n.t("grant_access")}
+                    onPress={() => router.navigate(`/reader/${book.id}`)}
+                    text={i18n.t("read")}
                 />
             </BottomButtonGroup>
 

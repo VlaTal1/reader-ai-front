@@ -18,7 +18,7 @@ import BookButton from "@/components/buttons/BookButton";
 import {useUserMode} from "@/hooks/userModeContext";
 
 const Books = () => {
-    const {childId, isChildMode} = useUserMode();
+    const {childId, isChildMode, isParentMode} = useUserMode();
     const router = useRouter();
 
     const [books, setBooks] = useState<Book[]>([]);
@@ -128,12 +128,14 @@ const Books = () => {
                 </ScrollView>
             </YStack>
 
-            <BottomButtonGroup>
-                <PrimaryButton
-                    onPress={() => setIsAddBookModalOpen(true)}
-                    text={i18n.t("add_book")}
-                />
-            </BottomButtonGroup>
+            {isParentMode && (
+                <BottomButtonGroup>
+                    <PrimaryButton
+                        onPress={() => setIsAddBookModalOpen(true)}
+                        text={i18n.t("add_book")}
+                    />
+                </BottomButtonGroup>
+            )}
 
             <AddBookModal
                 onClose={() => setIsAddBookModalOpen(false)}
