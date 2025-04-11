@@ -19,6 +19,11 @@ const participantApi = {
             path: "/api/participant/all",
         });
     },
+    fetchParticipantById: async (participantId: string): Promise<ApiResponse<Participant>> => {
+        return apiRequest<Participant>({
+            path: `/api/participant/${participantId}`,
+        });
+    },
 };
 
 export default participantApi;

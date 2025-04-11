@@ -10,23 +10,22 @@ import Header from "@/components/Header";
 import HeaderButton from "@/components/buttons/HeaderButton";
 import {CustomText} from "@/components/CustomText";
 import useApi from "@/hooks/useApi";
-import bookApi from "@/api/endpoints/bookApi";
-import {Book} from "@/types/Book";
-import ParticipantButton from "@/components/buttons/ParticipantButton";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
-import ParticipantSelectModal from "@/components/modal/participant-select-modal";
-import accessApi from "@/api/endpoints/accessApi";
 import {useUserMode} from "@/hooks/userModeContext";
+import participantApi from "@/api/endpoints/participantApi";
+import {Participant} from "@/types/Paticipant";
+import testApi from "@/api/endpoints/testApi";
+import {Test} from "@/types/Test";
+import TestButton from "@/components/buttons/TestButton";
 
-const BookDetails = () => {
+const ParticipantDetails = () => {
     const {isParentMode} = useUserMode();
     const {id} = useLocalSearchParams();
     const router = useRouter();
 
-    const [book, setBook] = useState<Book | undefined>(undefined);
-
-    const [isParticipantSelectModalOpen, setIsParticipantSelectModalOpen] = useState(false)
+    const [participant, setParticipant] = useState<Participant | undefined>(undefined);
+    const [tests, setTests] = useState<Test[]>([])
 
     const onCancel = useCallback(() => {
         router.back();
@@ -37,15 +36,15 @@ const BookDetails = () => {
         return true;
     });
 
-    const fetchBookByIdApi = useApi(
-        bookApi.fetchBookById,
+    const fetchParticipantByIdApi = useApi(
+        participantApi.fetchParticipantById,
         {
             onSuccess: (data) => {
-                setBook(data);
+                setParticipant(data);
             },
             errorHandler: {
                 title: i18n.t("error"),
-                message: `${i18n.t("failed_to_fetch_book")}\n${i18n.t("please_try_again_later")}`,
+                message: `${i18n.t("failed_to_fetch_child")}\n${i18n.t("please_try_again_later")}`,
                 options: {
                     tryAgain: true,
                     cancel: true,
@@ -54,41 +53,42 @@ const BookDetails = () => {
         },
     );
 
-    const grantAccessApi = useApi(
-        accessApi.grantAccess,
-        {
-            onSuccess: () => {
-                invokeFetchBookApi()
-            },
-            errorHandler: {
-                title: i18n.t("error"),
-                message: `${i18n.t("failed_to_grant_access")}\n${i18n.t("please_try_again_later")}`,
-                options: {
-                    tryAgain: true,
-                    cancel: true,
-                },
-            },
-        },
-    );
-
-    const invokeFetchBookApi = useCallback(() => {
-        fetchBookByIdApi.execute({bookId: typeof id === "string" ? id : id[0]});
-    }, [fetchBookByIdApi, id]);
+    const invokeFetchParticipantByIdApi = useCallback(() => {
+        fetchParticipantByIdApi.execute(typeof id === "string" ? id : id[0]);
+    }, [fetchParticipantByIdApi, id]);
 
     useEffect(() => {
-        invokeFetchBookApi()
+        invokeFetchParticipantByIdApi()
     }, []);
 
-    const handleChildSelect = useCallback(async (childId: string) => {
-        if (book) {
-            await grantAccessApi.execute({
-                bookId: book.id.toString(),
-                participantId: childId,
-            })
-        }
-    }, [book, grantAccessApi]);
+    const fetchTestsByParticipantIdApi = useApi(
+        testApi.fetchTestsByParticipantId,
+        {
+            onSuccess: (data) => {
+                setTests(data);
+            },
+            errorHandler: {
+                title: i18n.t("error"),
+                message: `${i18n.t("failed_to_fetch_tests")}\n${i18n.t("please_try_again_later")}`,
+                options: {
+                    tryAgain: true,
+                    cancel: true,
+                },
+            },
+        },
+    );
 
-    if (fetchBookByIdApi.loading || !book) {
+    const invokeFetchTestsByParticipantIdApi = useCallback(() => {
+        if (participant) {
+            fetchTestsByParticipantIdApi.execute(participant.id.toString());
+        }
+    }, [fetchTestsByParticipantIdApi, participant]);
+
+    useEffect(() => {
+        invokeFetchTestsByParticipantIdApi()
+    }, [participant]);
+
+    if (fetchParticipantByIdApi.loading || !participant) {
         return (
             <>
                 <CustomStackScreen/>
@@ -129,53 +129,34 @@ const BookDetails = () => {
                 <YStack flex={1} paddingHorizontal={16} gap={20}>
                     <YStack>
                         <CustomText size="h2">
-                            {book.title}
-                        </CustomText>
-                        <CustomText size="h3Regular">
-                            {book.author}
+                            {participant.name}
                         </CustomText>
                     </YStack>
                     {isParentMode && (
-                        <YStack>
+                        <YStack gap={16}>
                             <CustomText size="h4Regular" width="100%" textAlign="center">
-                                {i18n.t("list_of_accesses")}
+                                {i18n.t("tests")}
                             </CustomText>
-                            {
-                                book.accesses.map((access) => (
-                                    <ParticipantButton
-                                        key={access.participant.id}
-                                        participant={access.participant}
-                                        onPress={() => router.navigate(`/participant/${access.participant.id}`)}
-                                    />
-                                ))
-                            }
+                            <YStack gap={6}>
+                                {
+                                    tests.map((test) => (
+                                        <TestButton key={test.id} test={test}/>
+                                    ))
+                                }
+                            </YStack>
                         </YStack>
                     )}
                 </YStack>
             </YStack>
 
             <BottomButtonGroup>
-                <YStack gap={6}>
-                    {isParentMode && (
-                        <PrimaryButton
-                            onPress={() => setIsParticipantSelectModalOpen(true)}
-                            text={i18n.t("grant_access")}
-                        />
-                    )}
-                    <PrimaryButton
-                        onPress={() => router.navigate(`/reader/${book.id}`)}
-                        text={i18n.t("read")}
-                    />
-                </YStack>
+                <PrimaryButton
+                    onPress={() => router.navigate(`/reader/${participant.id}`)}
+                    text={i18n.t("read")}
+                />
             </BottomButtonGroup>
-
-            <ParticipantSelectModal
-                onClose={() => setIsParticipantSelectModalOpen(false)}
-                isOpen={isParticipantSelectModalOpen}
-                onSelect={handleChildSelect}
-            />
         </>
-    );
+    )
 };
 
-export default BookDetails;
+export default ParticipantDetails;

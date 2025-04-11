@@ -31,6 +31,12 @@ const en = {
     "failed_to_grant_access": "Failed to grant access",
     "grant_access": "Grant access",
     "read": "Read",
+    "failed_to_fetch_child": "Failed to fetch child",
+    "tests": "Tests",
+    "failed_to_fetch_tests": "Failed to fetch tests",
+    "pages_range": "Pages %{start} - %{end}",
+    "questions_amount": "Questions: %{amount}",
+    "test_status": "Status: %{status}",
 };
 
 export default en;

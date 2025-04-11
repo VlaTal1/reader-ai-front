@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {ScrollView, XStack, YStack} from "tamagui";
-import {ActivityIndicator, Alert, FlatList, RefreshControl} from "react-native";
+import {ActivityIndicator, FlatList, RefreshControl} from "react-native";
 import {useBackHandler} from "@react-native-community/hooks";
 import {useRouter} from "expo-router";
 
@@ -105,7 +105,11 @@ const Participants = () => {
                             data={participants}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (
-                                <ParticipantButton key={item.id} participant={item} onPress={() => Alert.alert("later")}/>
+                                <ParticipantButton
+                                    key={item.id}
+                                    participant={item}
+                                    onPress={() => router.navigate(`/participant/${item.id}`)}
+                                />
                             )}
                         />
                     </YStack>

@@ -1,8 +1,7 @@
 import apiRequest, {ApiResponse} from "@/api";
-import {Participant} from "@/types/Paticipant";
 import {Access} from "@/types/Access";
 
-const participantApi = {
+const accessApi = {
     grantAccess: async ({bookId, participantId}: {
         bookId: string;
         participantId: string;
@@ -15,11 +14,6 @@ const participantApi = {
             },
         });
     },
-    fetchAllParticipants: async (): Promise<ApiResponse<Participant[]>> => {
-        return apiRequest<Participant[]>({
-            path: "/api/participant/all",
-        });
-    },
 };
 
-export default participantApi;
+export default accessApi;
