@@ -2,9 +2,7 @@ import apiRequest, {ApiResponse} from "@/api";
 import {Test} from "@/types/Test";
 
 const testApi = {
-    createTest: async ({test}: {
-        test: Test;
-    }): Promise<ApiResponse<Test>> => {
+    createTest: async (test: Test): Promise<ApiResponse<Test>> => {
         return apiRequest<Test>({
             path: "/api/test",
             method: "POST",

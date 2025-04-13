@@ -37,6 +37,8 @@ const en = {
     "pages_range": "Pages %{start} - %{end}",
     "questions_amount": "Questions: %{amount}",
     "test_status": "Status: %{status}",
+    "failed_to_create_test": "Failed to create test",
+    "create_test": "Create test",
 };
 
 export default en;
