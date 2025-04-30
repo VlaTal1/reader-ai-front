@@ -21,6 +21,15 @@ const testApi = {
             },
         });
     },
+    fetchTests: async (): Promise<ApiResponse<Test[]>> => {
+        return apiRequest<Test[]>({
+            path: "/api/test/",
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+            },
+        });
+    },
 };
 
 export default testApi;

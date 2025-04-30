@@ -57,6 +57,10 @@ const Home = () => {
                         title={i18n.t("books")}
                         onPress={() => router.navigate("/books")}
                     />
+                    <HomeMenuCard
+                        title={i18n.t("tests")}
+                        onPress={() => router.navigate("/tests")}
+                    />
                     {isParentMode && (
                         <HomeMenuCard
                             title={i18n.t("children")}
