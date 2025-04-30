@@ -22,6 +22,7 @@
     "@react-navigation/native": "^7.0.14",
     "@supabase/supabase-js": "^2.49.4",
     "@tamagui/babel-plugin": "^1.123.9",
+    "@reduxjs/toolkit": "^2.3.0",
     "dotenv": "^16.4.5",
     "epubjs": "^0.3.93",
     "expo": "~52.0.41",
@@ -62,6 +63,7 @@
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
     "react-redux": "^9.2.0",
+    "redux-devtools-expo-dev-plugin": "^1.0.0",
     "tamagui": "^1.125.31"
   },
   "devDependencies": {

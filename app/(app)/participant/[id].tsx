@@ -18,6 +18,7 @@ import {Participant} from "@/types/Paticipant";
 import testApi from "@/api/endpoints/testApi";
 import {Test} from "@/types/Test";
 import TestButton from "@/components/buttons/TestButton";
+import CreateTestModal from "@/components/modal/create-test-modal";
 
 const ParticipantDetails = () => {
     const {isParentMode} = useUserMode();
@@ -26,6 +27,8 @@ const ParticipantDetails = () => {
 
     const [participant, setParticipant] = useState<Participant | undefined>(undefined);
     const [tests, setTests] = useState<Test[]>([])
+
+    const [isCreateTestModalOpen, setIsCreateTestModalOpen] = useState(false)
 
     const onCancel = useCallback(() => {
         router.back();
@@ -151,10 +154,17 @@ const ParticipantDetails = () => {
 
             <BottomButtonGroup>
                 <PrimaryButton
-                    onPress={() => router.navigate(`/reader/${participant.id}`)}
-                    text={i18n.t("read")}
+                    onPress={() => setIsCreateTestModalOpen(true)}
+                    text={i18n.t("assign_test")}
                 />
             </BottomButtonGroup>
+
+            <CreateTestModal
+                onClose={() => setIsCreateTestModalOpen(false)}
+                isOpen={isCreateTestModalOpen}
+                onSave={invokeFetchTestsByParticipantIdApi}
+                participantId={participant.id}
+            />
         </>
     )
 };

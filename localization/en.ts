@@ -35,10 +35,17 @@ const en = {
     "tests": "Tests",
     "failed_to_fetch_tests": "Failed to fetch tests",
     "pages_range": "Pages %{start} - %{end}",
-    "questions_amount": "Questions: %{amount}",
+    "questions_amount": "Questions amount",
     "test_status": "Status: %{status}",
     "failed_to_create_test": "Failed to create test",
     "create_test": "Create test",
+    "create_test_modal_description": "Create test for book %{bookName}",
+    "assign_test": "Assign test",
+    "start_page": "Start page",
+    "end_page": "End page",
+    "start_page_validation": "Start page must be greater than 0 and lower than end page",
+    "end_page_validation": "End page must be greater than 0 and greater than start page",
+    "questions_amount_validation": "Amount must be greater than 0",
 };
 
 export default en;

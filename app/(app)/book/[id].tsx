@@ -18,19 +18,24 @@ import PrimaryButton from "@/components/buttons/PrimaryButton";
 import ParticipantSelectModal from "@/components/modal/participant-select-modal";
 import accessApi from "@/api/endpoints/accessApi";
 import {useUserMode} from "@/hooks/userModeContext";
+import {useAppDispatch} from "@/store";
+import {resetTestBook, setTestBook} from "@/store/bookSlice";
 
 const BookDetails = () => {
     const {isParentMode} = useUserMode();
     const {id} = useLocalSearchParams();
+
     const router = useRouter();
+    const dispatch = useAppDispatch();
 
     const [book, setBook] = useState<Book | undefined>(undefined);
 
     const [isParticipantSelectModalOpen, setIsParticipantSelectModalOpen] = useState(false)
 
     const onCancel = useCallback(() => {
+        dispatch(resetTestBook());
         router.back();
-    }, [router]);
+    }, [dispatch, router]);
 
     useBackHandler(() => {
         onCancel();
@@ -42,6 +47,7 @@ const BookDetails = () => {
         {
             onSuccess: (data) => {
                 setBook(data);
+                dispatch(setTestBook(data));
             },
             errorHandler: {
                 title: i18n.t("error"),
