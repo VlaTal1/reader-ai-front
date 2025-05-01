@@ -222,17 +222,19 @@ const Reader = () => {
                                 <XStack justifyContent="space-between" marginTop={16} alignItems="center">
                                     <PrimaryButton
                                         onPress={goToPreviousPage}
-                                        disabled={pdfState.currentPage <= 1}
+                                        disabled={pdfState.currentPage <= 1 || pdfState.isLoading}
                                         icon={BackIcon}
                                         iconFillType="fill"
                                         width="30%"
                                     />
-                                    <CustomText size="h4Regular" color="$gray-100">
-                                        {pdfState.currentPage}/{pdfState.totalPages || "?"}
-                                    </CustomText>
+                                    {!pdfState.isLoading && (
+                                        <CustomText size="h4Regular" color="$gray-100">
+                                            {pdfState.currentPage}/{pdfState.totalPages}
+                                        </CustomText>
+                                    )}
                                     <PrimaryButton
                                         onPress={goToNextPage}
-                                        disabled={pdfState.currentPage >= pdfState.totalPages}
+                                        disabled={pdfState.currentPage >= pdfState.totalPages || pdfState.isLoading}
                                         icon={NextIcon}
                                         iconFillType="fill"
                                         width="30%"
