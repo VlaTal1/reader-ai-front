@@ -34,6 +34,7 @@ const en = {
     "failed_to_fetch_child": "Failed to fetch child",
     "tests": "Tests",
     "failed_to_fetch_tests": "Failed to fetch tests",
+    "failed_to_fetch_test": "Failed to fetch test",
     "pages_range": "Pages %{start} - %{end}",
     "questions_amount": "Questions amount",
     "test_status": "Status: %{status}",
@@ -46,6 +47,7 @@ const en = {
     "start_page_validation": "Start page must be greater than 0 and lower than end page",
     "end_page_validation": "End page must be greater than 0 and greater than start page",
     "questions_amount_validation": "Amount must be greater than 0",
+    "test_exists_message_text": "There is test after page %{page}",
 };
 
 export default en;

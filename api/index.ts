@@ -86,9 +86,34 @@ const buildUrl = (path: string, queryParams?: Record<string, string | undefined>
 };
 
 const processResponse = async <T>(response: Response, responseType: RequestConfig["responseType"]): Promise<ApiResponse<T>> => {
+    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+        return returnSuccessData(null as unknown as T);
+    }
+
+    const contentType = response.headers.get("Content-Type");
+    if (responseType === "json" && contentType?.includes("application/json")) {
+        const text = await response.text();
+        if (!text || text.trim() === "") {
+            return returnSuccessData(null as unknown as T);
+        }
+
+        try {
+            const json = JSON.parse(text);
+            return returnSuccessData(json);
+        } catch (e) {
+            console.error("JSON Parse error for response:", text);
+            return returnSuccessData(null as unknown as T);
+        }
+    }
+
     switch (responseType) {
         case "json":
-            return returnSuccessData(await response.json());
+            try {
+                return returnSuccessData(await response.json());
+            } catch (e) {
+                console.error("JSON Parse error:", e);
+                return returnSuccessData(null as unknown as T);
+            }
         case "blob":
             return returnSuccessData(await response.blob());
         case "text":
@@ -96,7 +121,12 @@ const processResponse = async <T>(response: Response, responseType: RequestConfi
         case "none":
             return returnSuccessData(undefined);
         default:
-            return returnSuccessData(await response.json());
+            try {
+                return returnSuccessData(await response.json());
+            } catch (e) {
+                console.error("Default JSON Parse error:", e);
+                return returnSuccessData(null as unknown as T);
+            }
     }
 };
 

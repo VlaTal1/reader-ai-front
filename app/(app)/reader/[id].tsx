@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {XStack, YStack} from "tamagui";
+import {View, XStack, YStack} from "tamagui";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import Pdf from "react-native-pdf";
-import {ActivityIndicator, Dimensions, View} from "react-native";
+import {ActivityIndicator, Dimensions} from "react-native";
 import * as FileSystem from "expo-file-system";
 
 import CustomStackScreen from "@/components/CustomStackScreen";
@@ -17,6 +17,11 @@ import NextIcon from "@/assets/images/icons/next-icon.svg";
 import {getAccessToken} from "@/auth/supabase";
 import {getApiBaseUrl} from "@/api";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
+import {useUserMode} from "@/hooks/userModeContext";
+import useApi from "@/hooks/useApi";
+import testApi from "@/api/endpoints/testApi";
+import {Test} from "@/types/Test";
+import Message from "@/components/Message";
 
 interface PdfState {
     uri: string | null;
@@ -26,6 +31,7 @@ interface PdfState {
 }
 
 const Reader = () => {
+    const {childId, isChildMode} = useUserMode();
     const {id} = useLocalSearchParams();
 
     const router = useRouter();
@@ -38,6 +44,8 @@ const Reader = () => {
         currentPage: 1,
         isLoading: true,
     });
+    const [test, setTest] = useState<Test | undefined>()
+    const [isMessageOpen, setIsMessageOpen] = useState(false)
 
     const onCancel = useCallback(() => {
         router.back();
@@ -82,6 +90,32 @@ const Reader = () => {
         }
     };
 
+    const fetchFirstTestByParticipantIdApi = useApi(
+        testApi.fetchFirstTestByParticipantId,
+        {
+            onSuccess: (data) => {
+                setTest(data);
+                if (data?.endPage && isChildMode) {
+                    setIsMessageOpen(true)
+                }
+            },
+            errorHandler: {
+                title: i18n.t("error"),
+                message: `${i18n.t("failed_to_fetch_test")}\n${i18n.t("please_try_again_later")}`,
+                options: {
+                    tryAgain: true,
+                    cancel: true,
+                },
+            },
+        },
+    );
+
+    const invokeFetchFirstTestByParticipantIdApi = useCallback(() => {
+        if (childId) {
+            fetchFirstTestByParticipantIdApi.execute(childId.toString());
+        }
+    }, [fetchFirstTestByParticipantIdApi, childId]);
+
     useEffect(() => {
         if (id) {
             downloadBook(id.toString());
@@ -89,6 +123,12 @@ const Reader = () => {
             setPdfState(prev => ({...prev, isLoading: false}));
         }
     }, [id]);
+
+    useEffect(() => {
+        if (isChildMode && childId !== undefined) {
+            invokeFetchFirstTestByParticipantIdApi();
+        }
+    }, [childId, isChildMode]);
 
     const handlePageChanged = (page: number, totalPages: number) => {
         setPdfState(prev => ({
@@ -203,6 +243,19 @@ const Reader = () => {
                     )}
                 </YStack>
             </YStack>
+            <View
+                display={isMessageOpen ? "flex" : "none"}
+                position="absolute"
+                top={50}
+                width="100%"
+                paddingHorizontal={16}
+            >
+                <Message
+                    message={i18n.t("test_exists_message_text", {page: test?.endPage})}
+                    onClose={() => setIsMessageOpen(false)}
+                    variant="regular"
+                />
+            </View>
         </>
     );
 };

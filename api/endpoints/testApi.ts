@@ -30,6 +30,15 @@ const testApi = {
             },
         });
     },
+    fetchFirstTestByParticipantId: async (participantId: string): Promise<ApiResponse<Test>> => {
+        return apiRequest<Test>({
+            path: `/api/test/participant/${participantId}/firstTest`,
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+            },
+        });
+    },
 };
 
 export default testApi;
