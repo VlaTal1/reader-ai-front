@@ -48,6 +48,10 @@ const en = {
     "end_page_validation": "End page must be greater than 0 and greater than start page",
     "questions_amount_validation": "Amount must be greater than 0",
     "test_exists_message_text": "There is test after page %{page}",
+    "go_to_test": "Go to test",
+    "correct_answer_amount": "Correct answers amount: %{amount}",
+    "result_grade": "Grade: %{grade}",
+    "back_to_home": "Back to home",
 };
 
 export default en;

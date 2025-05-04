@@ -39,6 +39,16 @@ const testApi = {
             },
         });
     },
+    saveTest: async (test: Test): Promise<ApiResponse<Test>> => {
+        return apiRequest<Test>({
+            path: "/api/test/pass",
+            method: "POST",
+            body: test,
+            headers: {
+                "Accept": "application/json",
+            },
+        });
+    },
 };
 
 export default testApi;

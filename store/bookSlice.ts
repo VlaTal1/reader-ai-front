@@ -3,14 +3,14 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Book} from "@/types/Book";
 
 interface BookState {
-    testBook?: Book;
+    testBook?: Book; // TODO move to testSlice
 }
 
 const initialState: BookState = {
     testBook: undefined,
 };
 
-const photoSlice = createSlice({
+const bookSlice = createSlice({
     name: "book",
     initialState,
     reducers: {
@@ -23,6 +23,6 @@ const photoSlice = createSlice({
     },
 });
 
-export const {setTestBook, resetTestBook} = photoSlice.actions;
+export const {setTestBook, resetTestBook} = bookSlice.actions;
 
-export default photoSlice;
+export default bookSlice;

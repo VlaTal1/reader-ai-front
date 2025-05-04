@@ -22,6 +22,8 @@ import useApi from "@/hooks/useApi";
 import testApi from "@/api/endpoints/testApi";
 import {Test} from "@/types/Test";
 import Message from "@/components/Message";
+import {useAppDispatch} from "@/store";
+import {setCurrentTest} from "@/store/testSlice";
 
 interface PdfState {
     uri: string | null;
@@ -31,10 +33,12 @@ interface PdfState {
 }
 
 const Reader = () => {
-    const {childId, isChildMode} = useUserMode();
+    const {childId, isChildMode, isParentMode} = useUserMode();
     const {id} = useLocalSearchParams();
 
     const router = useRouter();
+    const dispatch = useAppDispatch();
+
     const screenWidth = Dimensions.get("window").width;
     const screenHeight = Dimensions.get("window").height;
 
@@ -95,7 +99,8 @@ const Reader = () => {
         {
             onSuccess: (data) => {
                 setTest(data);
-                if (data?.endPage && isChildMode) {
+                if (data && data.endPage && isChildMode) {
+                    dispatch(setCurrentTest(data));
                     setIsMessageOpen(true)
                 }
             },
@@ -158,7 +163,35 @@ const Reader = () => {
                 currentPage: newPage,
             }));
         }
+        if (isChildMode && pdfState.currentPage === test?.endPage) {
+            router.navigate("/testPassing/test")
+        }
     };
+
+    const getNextButtonDisabled = () => {
+        if (pdfState.isLoading) {
+            return true;
+        }
+        if (pdfState.currentPage >= pdfState.totalPages) {
+            if (isChildMode && pdfState.currentPage === test?.endPage) {
+                return false;
+            }
+            return true;
+        }
+    }
+    const getNextButtonIcon = () => {
+        if (isChildMode && pdfState.currentPage === test?.endPage) {
+            return undefined;
+        }
+        return NextIcon;
+    }
+
+    const getNextButtonText = () => {
+        if (isChildMode && pdfState.currentPage === test?.endPage) {
+            return i18n.t("go_to_test");
+        }
+        return undefined;
+    }
 
     const pdfRef = React.useRef<Pdf>(null);
 
@@ -234,8 +267,9 @@ const Reader = () => {
                                     )}
                                     <PrimaryButton
                                         onPress={goToNextPage}
-                                        disabled={pdfState.currentPage >= pdfState.totalPages || pdfState.isLoading}
-                                        icon={NextIcon}
+                                        disabled={getNextButtonDisabled()}
+                                        icon={getNextButtonIcon()}
+                                        text={getNextButtonText()}
                                         iconFillType="fill"
                                         width="30%"
                                     />
