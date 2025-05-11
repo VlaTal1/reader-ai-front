@@ -99,7 +99,10 @@ const en = {
     "failed_to_fetch_test": "Failed to fetch test",
     "pages_range": "Pages %{start} - %{end}",
     "questions_amount": "Questions amount",
-    "test_status": "Status: %{status}",
+    "test_status": "Status:",
+    "COMPLETED": "Completed",
+    "NOT_STARTED": "Not started",
+    "IN_PROGRESS": "In Progress",
     "failed_to_create_test": "Failed to create test",
     "create_test": "Create test",
     "create_test_modal_description": "Create test for book %{bookName}",
@@ -114,6 +117,8 @@ const en = {
     "correct_answer_amount": "Correct answers amount: %{amount}",
     "result_grade": "Grade: %{grade}",
     "back_to_home": "Back to home",
+    "test_button_child_name": "Child: %{childName}",
+    "test_button_questions_amount": "Questions: %{questionsAmount}",
 };
 
 export default en;
