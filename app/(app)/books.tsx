@@ -16,6 +16,7 @@ import AddBookModal from "@/components/modal/add-book-modal";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 import BookButton from "@/components/buttons/BookButton";
 import {useUserMode} from "@/hooks/userModeContext";
+import {CustomText} from "@/components/CustomText";
 
 const Books = () => {
     const {childId, isChildMode, isParentMode} = useUserMode();
@@ -109,6 +110,9 @@ const Books = () => {
                         />
                     }
                 >
+                    <CustomText size="h2">
+                        {i18n.t("books")}
+                    </CustomText>
                     <YStack flex={1} height="100%" paddingBottom={80}>
                         <FlatList
                             numColumns={1}
