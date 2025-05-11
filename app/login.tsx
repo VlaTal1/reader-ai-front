@@ -8,7 +8,6 @@ import Login from "@/components/Login";
 import {useAuth} from "@/auth/SupabaseAuthProvider";
 import CustomStackScreen from "@/components/CustomStackScreen";
 
-
 const LoginPage = () => {
     const {user, isLoading: isProfileLoading} = useAuth();
 

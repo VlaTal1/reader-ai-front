@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import {Circle, View, XStack} from "tamagui";
-import {Alert, BackHandler} from "react-native";
+import { BackHandler} from "react-native";
 import {useBackHandler} from "@react-native-community/hooks";
 import {useRouter} from "expo-router";
 
 import BurgerIcon from "@/assets/images/icons/burger-icon.svg";
+import {useAuth} from "@/auth/SupabaseAuthProvider";
 import CustomStackScreen from "@/components/CustomStackScreen";
 import {HomeMenuCard} from "@/components/home/HomeMenuCard";
 import i18n from "@/localization/i18n";
@@ -12,6 +13,7 @@ import BurgerMenu from "@/components/BurgerMenu";
 import {useUserMode} from "@/hooks/userModeContext";
 
 const Home = () => {
+    const {user, profile, isLoading: isProfileLoading, signOut, isActionActivated} = useAuth();
     const {isParentMode} = useUserMode();
     const router = useRouter();
 
@@ -19,6 +21,11 @@ const Home = () => {
         BackHandler.exitApp();
         return true;
     })
+
+    const onLogout = async () => {
+        await signOut();
+        setIsBurgerOpen(false);
+    };
 
     const [isBurgerOpen, setIsBurgerOpen] = useState(false)
 
@@ -73,7 +80,7 @@ const Home = () => {
             <BurgerMenu
                 isOpen={isBurgerOpen}
                 onClose={() => setIsBurgerOpen(false)}
-                onLogout={() => Alert.alert("Will be implemented later")}
+                onLogout={onLogout}
             />
         </>
     )

@@ -455,9 +455,6 @@ const Login = () => {
                                 {i18n.t("app_name")}
                             </CustomText>
                         </View>
-                        <CustomText size="p1Light" color="$gray-40">
-                            {i18n.t("app_description")}
-                        </CustomText>
                     </YStack>
                 </View>
             </YStack>
@@ -511,22 +508,10 @@ const Login = () => {
                             <PrimaryButton text={i18n.t("login")} onPress={onLogin}/>
                             <SecondaryButton text={i18n.t("sign_up")} onPress={onSignUp}/>
                         </YStack>
-                        <XStack alignItems="center" gap={12}>
-                            <View flex={1} borderTopWidth={1} borderTopColor="$gray-75"/>
-                            <CustomText size="p1Light" color="$gray-60">{i18n.t("or")}</CustomText>
-                            <View flex={1} borderTopWidth={1} borderTopColor="$gray-75"/>
-                        </XStack>
-                        <GoogleSignInButton onPress={onGoogleLogin} isLoading={googleLoading}/>
                     </YStack>
                 ) : (
                     <YStack gap={16}>
                         <PrimaryButton text={i18n.t("login_via_email")} onPress={onLogin}/>
-                        <XStack alignItems="center" gap={12}>
-                            <View flex={1} borderTopWidth={1} borderTopColor="$gray-75"/>
-                            <CustomText size="p1Light" color="$gray-60">{i18n.t("or")}</CustomText>
-                            <View flex={1} borderTopWidth={1} borderTopColor="$gray-75"/>
-                        </XStack>
-                        <GoogleSignInButton onPress={onGoogleLogin} isLoading={googleLoading}/>
                     </YStack>
                 )}
             </YStack>
