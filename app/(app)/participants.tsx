@@ -15,6 +15,7 @@ import ParticipantButton from "@/components/buttons/ParticipantButton";
 import BottomButtonGroup from "@/components/buttons/BottomButtonGroup";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import AddParticipantModal from "@/components/modal/add-participant-modal";
+import {CustomText} from "@/components/CustomText";
 
 const Participants = () => {
     const router = useRouter();
@@ -94,6 +95,9 @@ const Participants = () => {
                         />
                     }
                 >
+                    <CustomText size="h2">
+                        {i18n.t("children")}
+                    </CustomText>
                     <YStack flex={1} height="100%" paddingBottom={80}>
                         <FlatList
                             numColumns={1}
