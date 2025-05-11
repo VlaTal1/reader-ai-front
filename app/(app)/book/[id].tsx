@@ -146,15 +146,17 @@ const BookDetails = () => {
                             <CustomText size="h4Regular" width="100%" textAlign="center">
                                 {i18n.t("list_of_accesses")}
                             </CustomText>
-                            {
-                                book.accesses.map((access) => (
-                                    <ParticipantButton
-                                        key={access.participant.id}
-                                        participant={access.participant}
-                                        onPress={() => router.navigate(`/participant/${access.participant.id}`)}
-                                    />
-                                ))
-                            }
+                            <YStack gap={6}>
+                                {
+                                    book.accesses.map((access) => (
+                                        <ParticipantButton
+                                            key={access.participant.id}
+                                            participant={access.participant}
+                                            onPress={() => router.navigate(`/participant/${access.participant.id}`)}
+                                        />
+                                    ))
+                                }
+                            </YStack>
                         </YStack>
                     )}
                 </YStack>
