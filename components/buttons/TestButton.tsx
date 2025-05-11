@@ -4,6 +4,7 @@ import {ThemeableStack, YStack} from "tamagui";
 import {CustomText} from "@/components/CustomText";
 import {Test} from "@/types/Test";
 import i18n from "@/localization/i18n";
+import CompleteStatus from "@/types/CompleteStatus";
 
 type Props = {
     test: Test
@@ -32,9 +33,11 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false}) => {
                 <CustomText size="p1Regular" numberOfLines={1}>
                     {i18n.t("pages_range", {start: test.startPage, end: test.endPage})}
                 </CustomText>
-                <CustomText size="p1Regular" numberOfLines={1}>
-                    {i18n.t("questions_amount", {amount: test.questionsAmount})}
-                </CustomText>
+                {test.completed === CompleteStatus.COMPLETED && (
+                    <CustomText size="p1Regular" numberOfLines={1}>
+                        {i18n.t("result_grade", {grade: test.grade})}
+                    </CustomText>
+                )}
                 <CustomText size="p1Regular" numberOfLines={1}>
                     {i18n.t("test_status", {status: test.completed})}
                 </CustomText>
