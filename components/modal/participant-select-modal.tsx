@@ -16,10 +16,11 @@ import ArrowRightIcon from "@/assets/images/icons/next-icon.svg";
 type Props = {
     onClose: () => void;
     isOpen: boolean;
-    onSelect: (childId: string) => void;
+    onSelectId?: (childId: string) => void;
+    onSelectParticipant?: (participant: Participant) => void;
 }
 
-const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
+const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelectId, onSelectParticipant}) => {
     const {keyboardVisible, availableContentHeight} = useWindow()
 
     const [isDiscardModalOpen, setIsDiscardModalOpen] = useState(false)
@@ -59,8 +60,13 @@ const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
         onClose();
     }, [onClose]);
 
-    const handleSelect = useCallback(async (participantId: number) => {
-        onSelect(participantId.toString())
+    const handleSelect = useCallback(async (participant: Participant) => {
+        if (onSelectId) {
+            onSelectId(participant.id.toString())
+        }
+        if (onSelectParticipant) {
+            onSelectParticipant(participant)
+        }
         onClose()
     }, [onClose]);
 
@@ -88,7 +94,7 @@ const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelect}) => {
                     participants.map((participant) => (
                         <ListButton
                             key={participant.id}
-                            onPress={() => handleSelect(participant.id)}
+                            onPress={() => handleSelect(participant)}
                             text={participant.name}
                             icon={ArrowRightIcon}
                         />

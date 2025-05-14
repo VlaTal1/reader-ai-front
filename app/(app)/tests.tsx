@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import {ScrollView, XStack, YStack} from "tamagui";
-import {Alert, RefreshControl} from "react-native";
+import {Alert, RefreshControl, TouchableOpacity} from "react-native";
 
 import useApi from "@/hooks/useApi";
 import i18n from "@/localization/i18n";
@@ -16,12 +16,21 @@ import {Test} from "@/types/Test";
 import testApi from "@/api/endpoints/testApi";
 import {CustomText} from "@/components/CustomText";
 import TestButton from "@/components/buttons/TestButton";
+import participantApi from "@/api/endpoints/participantApi";
+import LabelledInput from "@/components/LabelledInput";
+import Input from "@/components/input";
+import NextIcon from "@/assets/images/icons/next-icon.svg";
+import {Participant} from "@/types/Paticipant";
+import ParticipantSelectModal from "@/components/modal/participant-select-modal";
 
 const Tests = () => {
     const {childId, isParentMode} = useUserMode();
     const router = useRouter();
 
     const [tests, setTests] = useState<Test[]>([])
+    const [currentParticipant, setCurrentParticipant] = useState<Participant | undefined>(undefined)
+
+    const [isParticipantSelectModalOpen, setIsParticipantSelectModalOpen] = useState(false)
 
     const onCancel = useCallback(() => {
         router.back();
@@ -49,42 +58,49 @@ const Tests = () => {
         },
     );
 
-    const fetchTestsApi = useApi(
-        testApi.fetchTests,
+    const fetchAllParticipantApi = useApi(
+        participantApi.fetchAllParticipants,
         {
             onSuccess: (data) => {
-                setTests(data);
+                if (data.length > 0) {
+                    setCurrentParticipant(data[0])
+                }
             },
             errorHandler: {
                 title: i18n.t("error"),
-                message: `${i18n.t("failed_to_fetch_tests")}\n${i18n.t("please_try_again_later")}`,
+                message: `${i18n.t("failed_to_fetch_children")}\n${i18n.t("please_try_again_later")}`,
                 options: {
                     tryAgain: true,
                     cancel: true,
+                    navigate: {
+                        mode: "back",
+                    },
                 },
             },
         },
     );
 
+    const invokeFetchAllParticipants = useCallback(() => {
+        fetchAllParticipantApi.execute();
+    }, [fetchAllParticipantApi]);
+
     const invokeFetchTestsByParticipantIdApi = useCallback(() => {
         if (childId) {
             fetchTestsByParticipantIdApi.execute(childId.toString());
+        } else if (currentParticipant) {
+            fetchTestsByParticipantIdApi.execute(currentParticipant.id.toString());
         }
-    }, [fetchTestsByParticipantIdApi, childId]);
+    }, [fetchTestsByParticipantIdApi, childId, currentParticipant]);
 
-    const invokeFetchTestsApi = useCallback(() => {
-        if (childId) {
-            fetchTestsApi.execute();
-        }
-    }, [fetchTestsApi, childId]);
+    useEffect(() => {
+        invokeFetchTestsByParticipantIdApi()
+    }, [isParentMode, currentParticipant]);
 
     useEffect(() => {
         if (isParentMode) {
-            invokeFetchTestsApi()
-        } else {
-            invokeFetchTestsByParticipantIdApi()
+            invokeFetchAllParticipants()
         }
-    }, [childId]);
+    }, []);
 
     return (
         <>
@@ -107,12 +123,29 @@ const Tests = () => {
                             onRefresh={invokeFetchTestsByParticipantIdApi}
                         />
                     }
+                    contentContainerStyle={{paddingHorizontal: 16}}
                 >
-                    <YStack flex={1} paddingHorizontal={16} gap={20}>
+                    <YStack flex={1} gap={20}>
                         <YStack gap={16}>
-                            <CustomText size="h4Regular" width="100%" textAlign="center">
+                            <CustomText size="h2">
                                 {i18n.t("tests")}
                             </CustomText>
+                            {isParentMode && (
+                                <LabelledInput label={i18n.t("child_name")} htmlFor="childName">
+                                    <TouchableOpacity
+                                        onPress={() => setIsParticipantSelectModalOpen(true)}
+                                        activeOpacity={0.7}
+                                    >
+                                        <Input
+                                            id="childName"
+                                            inputEnabled={false}
+                                            value={currentParticipant?.name || i18n.t("name")}
+                                            placeholder={i18n.t("name")}
+                                            rightElement={<NextIcon fill="black"/>}
+                                        />
+                                    </TouchableOpacity>
+                                </LabelledInput>
+                            )}
                             <YStack gap={6}>
                                 {
                                     tests.map((test) => (
@@ -133,6 +166,12 @@ const Tests = () => {
                     />
                 </BottomButtonGroup>
             )}
+
+            <ParticipantSelectModal
+                onClose={() => setIsParticipantSelectModalOpen(false)}
+                isOpen={isParticipantSelectModalOpen}
+                onSelectParticipant={setCurrentParticipant}
+            />
         </>
     )
 }

@@ -101,7 +101,7 @@ const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
             <ParticipantSelectModal
                 onClose={() => setIsSwitchParticipantModalOpen(false)}
                 isOpen={isSwitchParticipantModalOpen}
-                onSelect={handleChildSelect}
+                onSelectId={handleChildSelect}
             />
         </>
     )

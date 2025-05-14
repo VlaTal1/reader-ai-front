@@ -180,7 +180,7 @@ const BookDetails = () => {
             <ParticipantSelectModal
                 onClose={() => setIsParticipantSelectModalOpen(false)}
                 isOpen={isParticipantSelectModalOpen}
-                onSelect={handleChildSelect}
+                onSelectId={handleChildSelect}
             />
         </>
     );

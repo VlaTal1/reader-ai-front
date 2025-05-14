@@ -5,7 +5,6 @@ import {CustomText} from "@/components/CustomText";
 import {Test} from "@/types/Test";
 import i18n from "@/localization/i18n";
 import CompleteStatus from "@/types/CompleteStatus";
-import {useUserMode} from "@/hooks/userModeContext";
 
 type Props = {
     test: Test
@@ -13,8 +12,6 @@ type Props = {
     disabled?: boolean
 }
 const TestButton: FC<Props> = ({test, onPress, disabled = false}) => {
-    const {isParentMode} = useUserMode()
-
     const backgroundColor = useMemo(() => {
         if (test.completed === CompleteStatus.COMPLETED) {
             return "#b0de61"
@@ -44,11 +41,11 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false}) => {
                     <CustomText size="h5Regular" numberOfLines={1}>
                         {test.progress.book.title}
                     </CustomText>
-                    {isParentMode && (
-                        <CustomText size="h5Regular" numberOfLines={1}>
-                            {i18n.t("test_button_child_name", {childName: test.progress.participant.name})}
-                        </CustomText>
-                    )}
+                    {/*{isParentMode && (*/}
+                    {/*    <CustomText size="h5Regular" numberOfLines={1}>*/}
+                    {/*        {i18n.t("test_button_child_name", {childName: test.progress.participant.name})}*/}
+                    {/*    </CustomText>*/}
+                    {/*)}*/}
                 </XStack>
                 <YStack>
                     <CustomText size="p1Regular" numberOfLines={1}>

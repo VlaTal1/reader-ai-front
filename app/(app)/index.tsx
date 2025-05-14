@@ -13,7 +13,7 @@ import BurgerMenu from "@/components/BurgerMenu";
 import {useUserMode} from "@/hooks/userModeContext";
 
 const Home = () => {
-    const {user, profile, isLoading: isProfileLoading, signOut, isActionActivated} = useAuth();
+    const {user, profile, isLoading: isProfileLoading, signOut} = useAuth();
     const {isParentMode} = useUserMode();
     const router = useRouter();
 
