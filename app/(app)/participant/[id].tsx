@@ -19,11 +19,13 @@ import testApi from "@/api/endpoints/testApi";
 import {Test} from "@/types/Test";
 import TestButton from "@/components/buttons/TestButton";
 import CreateTestModal from "@/components/modal/create-test-modal";
+import {useAppSelector} from "@/store";
 
 const ParticipantDetails = () => {
     const {isParentMode} = useUserMode();
     const {id} = useLocalSearchParams();
     const router = useRouter();
+    const {testBook} = useAppSelector((state) => state.book)
 
     const [participant, setParticipant] = useState<Participant | undefined>(undefined);
     const [tests, setTests] = useState<Test[]>([])
@@ -81,14 +83,44 @@ const ParticipantDetails = () => {
         },
     );
 
+    const fetchTestsByParticipantIdAndBookIdApi = useApi(
+        testApi.fetchTestsByParticipantIdAndBookId,
+        {
+            onSuccess: (data) => {
+                setTests(data);
+            },
+            errorHandler: {
+                title: i18n.t("error"),
+                message: `${i18n.t("failed_to_fetch_tests")}\n${i18n.t("please_try_again_later")}`,
+                options: {
+                    tryAgain: true,
+                    cancel: true,
+                },
+            },
+        },
+    );
+
     const invokeFetchTestsByParticipantIdApi = useCallback(() => {
         if (participant) {
             fetchTestsByParticipantIdApi.execute(participant.id.toString());
         }
-    }, [fetchTestsByParticipantIdApi, participant]);
+    }, [participant]);
+
+    const invokeFetchTestsByParticipantIdAndBookIdApi = useCallback(() => {
+        if (participant && testBook) {
+            fetchTestsByParticipantIdAndBookIdApi.execute({
+                participantId: participant.id.toString(),
+                bookId: testBook.id.toString(),
+            });
+        }
+    }, [participant, testBook]);
 
     useEffect(() => {
-        invokeFetchTestsByParticipantIdApi()
+        if (testBook) {
+            invokeFetchTestsByParticipantIdAndBookIdApi()
+        } else {
+            invokeFetchTestsByParticipantIdApi()
+        }
     }, [participant]);
 
     if (fetchParticipantByIdApi.loading || !participant) {
