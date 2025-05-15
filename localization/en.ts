@@ -122,9 +122,11 @@ const en = {
     "book": "Book",
     "create_test_for_child": "Create test for %{childName}",
     "avg_grade": "Average grade",
-    "reading_time": "Reading time",
+    "reading_statistics": "Reading statistics",
     "statistics": "Statistics",
     "completed": "Completed",
+    "reading_time": "Reading time",
+    "pages": "Pages",
 };
 
 export default en;

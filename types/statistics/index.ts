@@ -1,1 +1,1 @@
-export type StatisticsType = "avgGrade";
+export type StatisticsType = "avgGrade" | "daily";

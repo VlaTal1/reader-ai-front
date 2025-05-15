@@ -15,6 +15,7 @@ import {GradeByParticipant} from "@/types/statistics/GradeByParticipant";
 import SegmentedControl from "@/components/SegmentedControl";
 import StatisticsChart from "@/components/statistics/charts";
 import {StatisticsType} from "@/types/statistics";
+import {ParticipantDailyStats} from "@/types/statistics/DailyStatistics";
 
 
 const StatisticsView = () => {
@@ -22,10 +23,11 @@ const StatisticsView = () => {
 
     const tabs = useMemo(() => ([
         i18n.t("avg_grade"),
-        i18n.t("reading_time"),
+        i18n.t("reading_statistics"),
     ]), [])
 
-    const [statistics, setStatistics] = useState<GradeByParticipant[] | undefined>(undefined)
+    const [avgData, setAvgData] = useState<GradeByParticipant[] | undefined>(undefined)
+    const [dailyData, setDailyData] = useState<ParticipantDailyStats[] | undefined>(undefined)
 
     const [currentTab, setCurrentTab] = useState(0)
     const [chartType, setChartType] = useState<StatisticsType>("avgGrade")
@@ -35,6 +37,11 @@ const StatisticsView = () => {
             return
         }
         setCurrentTab(newTab)
+        if (newTab === 0) {
+            setChartType("avgGrade")
+        } else {
+            setChartType("daily")
+        }
     }
 
     const onCancel = useCallback(() => {
@@ -50,7 +57,26 @@ const StatisticsView = () => {
         statisticsApi.getAvgGrade,
         {
             onSuccess: (data) => {
-                setStatistics(data)
+                setAvgData(data)
+            },
+            errorHandler: {
+                title: i18n.t("error_header"),
+                message: i18n.t("error_load_statistics"),
+                options: {
+                    tryAgain: true,
+                    navigate: {
+                        mode: "back",
+                    },
+                },
+            },
+        },
+    )
+
+    const getDailyApi = useApi(
+        statisticsApi.getDaily,
+        {
+            onSuccess: (data) => {
+                setDailyData(data)
             },
             errorHandler: {
                 title: i18n.t("error_header"),
@@ -68,6 +94,8 @@ const StatisticsView = () => {
     useEffect(() => {
         if (currentTab === 0) {
             getAvgGradeApi.execute()
+        } else {
+            getDailyApi.execute()
         }
     }, [currentTab]);
 
@@ -111,10 +139,10 @@ const StatisticsView = () => {
                             height="100%"
                             flex={1}
                         >
-                            {getAvgGradeApi.loading || !statistics ? (
+                            {getAvgGradeApi.loading || !avgData ? (
                                 <ActivityIndicator size="large" color="blue"/>
                             ) : (
-                                <StatisticsChart data={statistics} type={chartType}/>
+                                <StatisticsChart avgData={avgData} dailyData={dailyData} type={chartType}/>
                             )}
                         </YStack>
                     </YStack>
