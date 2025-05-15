@@ -124,6 +124,7 @@ const en = {
     "avg_grade": "Average grade",
     "reading_time": "Reading time",
     "statistics": "Statistics",
+    "completed": "Completed",
 };
 
 export default en;
