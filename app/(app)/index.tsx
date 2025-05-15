@@ -74,6 +74,12 @@ const Home = () => {
                             onPress={() => router.navigate("/participants")}
                         />
                     )}
+                    {isParentMode && (
+                        <HomeMenuCard
+                            title={i18n.t("statistics")}
+                            onPress={() => router.navigate("/statistics")}
+                        />
+                    )}
                 </XStack>
             </View>
 

@@ -121,6 +121,9 @@ const en = {
     "test_button_questions_amount": "Questions: %{questionsAmount}",
     "book": "Book",
     "create_test_for_child": "Create test for %{childName}",
+    "avg_grade": "Average grade",
+    "reading_time": "Reading time",
+    "statistics": "Statistics",
 };
 
 export default en;

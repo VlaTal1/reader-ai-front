@@ -64,6 +64,7 @@
     "react-native-webview": "13.12.5",
     "react-redux": "^9.2.0",
     "redux-devtools-expo-dev-plugin": "^1.0.0",
+    "react-native-gifted-charts": "^1.4.58",
     "tamagui": "^1.125.31"
   },
   "devDependencies": {
