@@ -164,6 +164,7 @@ const ParticipantDetails = () => {
                 isOpen={isCreateTestModalOpen}
                 onSave={invokeFetchTestsByParticipantIdApi}
                 participantId={participant.id}
+                participantName={participant.name}
             />
         </>
     )

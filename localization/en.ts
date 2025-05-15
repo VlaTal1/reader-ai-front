@@ -105,7 +105,7 @@ const en = {
     "IN_PROGRESS": "In Progress",
     "failed_to_create_test": "Failed to create test",
     "create_test": "Create test",
-    "create_test_modal_description": "Create test for book %{bookName}",
+    "create_test_modal_description": "Create test for book %{bookName} for %{childName}",
     "assign_test": "Assign test",
     "start_page": "Start page",
     "end_page": "End page",
@@ -119,6 +119,8 @@ const en = {
     "back_to_home": "Back to home",
     "test_button_child_name": "Child: %{childName}",
     "test_button_questions_amount": "Questions: %{questionsAmount}",
+    "book": "Book",
+    "create_test_for_child": "Create test for %{childName}",
 };
 
 export default en;

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import {ScrollView, XStack, YStack} from "tamagui";
-import {Alert, RefreshControl, TouchableOpacity} from "react-native";
+import { RefreshControl, TouchableOpacity} from "react-native";
 
 import useApi from "@/hooks/useApi";
 import i18n from "@/localization/i18n";
@@ -22,6 +22,7 @@ import Input from "@/components/input";
 import NextIcon from "@/assets/images/icons/next-icon.svg";
 import {Participant} from "@/types/Paticipant";
 import ParticipantSelectModal from "@/components/modal/participant-select-modal";
+import CreateTestModal from "@/components/modal/create-test-modal";
 
 const Tests = () => {
     const {childId, isParentMode} = useUserMode();
@@ -31,6 +32,7 @@ const Tests = () => {
     const [currentParticipant, setCurrentParticipant] = useState<Participant | undefined>(undefined)
 
     const [isParticipantSelectModalOpen, setIsParticipantSelectModalOpen] = useState(false)
+    const [isCreateTestModalOpen, setIsCreateTestModalOpen] = useState(false)
 
     const onCancel = useCallback(() => {
         router.back();
@@ -161,7 +163,7 @@ const Tests = () => {
             {isParentMode && (
                 <BottomButtonGroup>
                     <PrimaryButton
-                        onPress={() => Alert.alert("later")}
+                        onPress={() => setIsCreateTestModalOpen(true)}
                         text={i18n.t("assign_test")}
                     />
                 </BottomButtonGroup>
@@ -172,6 +174,16 @@ const Tests = () => {
                 isOpen={isParticipantSelectModalOpen}
                 onSelectParticipant={setCurrentParticipant}
             />
+
+            {isParentMode && currentParticipant && (
+                <CreateTestModal
+                    onClose={() => setIsCreateTestModalOpen(false)}
+                    isOpen={isCreateTestModalOpen}
+                    onSave={invokeFetchTestsByParticipantIdApi}
+                    participantId={currentParticipant.id}
+                    participantName={currentParticipant.name}
+                />
+            )}
         </>
     )
 }
