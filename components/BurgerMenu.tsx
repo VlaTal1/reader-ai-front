@@ -30,6 +30,7 @@ const BurgerMenu: React.FC<Props> = ({isOpen, onClose, onLogout}) => {
 
     const handleSwitchMode = async () => {
         if (isChildMode) {
+            await setActiveChildId(null);
             await changeUserMode(UserMode.PARENT);
         } else {
             setIsSwitchParticipantModalOpen(true)
