@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {LineChart} from "react-native-gifted-charts";
 
 import {ParticipantDailyStats} from "@/types/statistics/DailyStatistics";
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const {width: SCREEN_WIDTH} = Dimensions.get("window");
-const CHART_WIDTH = SCREEN_WIDTH * 1.5;
+const CHART_WIDTH = SCREEN_WIDTH - 150;
 
 const ReadingStatsPage: React.FC<Props> = ({data}) => {
     const [selectedParticipantId, setSelectedParticipantId] = useState<number | null>(
@@ -58,10 +58,7 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         width: CHART_WIDTH,
         height: 200,
         spacing: CHART_WIDTH / 6,
-        initialSpacing: 40,
         endSpacing: 20,
-        yAxisLabelWidth: 40,
-        xAxisLabelsHeight: 30,
         showDataPointsForAllPoints: true,
         dataPointsColor: "#00BFA6",
         dataPointsRadius: 5,
@@ -134,27 +131,23 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
 
         return (
             <View style={styles.chartContainer}>
-                <Text style={styles.chartTitle}>{title}</Text>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.chartScrollContent}
-                    contentOffset={{x: CHART_WIDTH - SCREEN_WIDTH, y: 0}}
-                >
-                    <LineChart
-                        data={data}
-                        {...chartConfig}
-                        maxValue={maxYValue}
-                        yAxisTextStyle={styles.axisText}
-                        yAxisLabelTexts={yAxisValues.map((v) => v.toString())}
-                        xAxisLabelTextStyle={styles.axisText}
-                        color={color}
-                        hideDataPoints={false}
-                        curved={true}
-                        disableScroll={true}
-                        isAnimated={true}
-                    />
-                </ScrollView>
+            <Text style={styles.chartTitle}>{title}</Text>
+                <LineChart
+                    data={data}
+                    {...chartConfig}
+                    maxValue={maxYValue}
+                    yAxisTextStyle={styles.axisText}
+                    yAxisLabelTexts={yAxisValues.map((v) => v.toString())}
+                    xAxisLabelTextStyle={styles.axisText}
+                    color={color}
+                    hideDataPoints={false}
+                    curved={true}
+                    disableScroll={false}
+                    isAnimated={true}
+                    textFontSize={14}
+                    textShiftY={-10}
+                    textShiftX={-5}
+                />
             </View>
         );
     };
