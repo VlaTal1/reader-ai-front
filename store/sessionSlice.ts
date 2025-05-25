@@ -23,19 +23,12 @@ export const saveSession = createAsyncThunk<
         const session = {
             ...currentSession,
             progress: progress,
-            endTime: currentSession.endTime instanceof Date
-                ? currentSession.endTime.toISOString()
-                : currentSession.endTime,
-            startTime: currentSession.startTime instanceof Date
-                ? currentSession.startTime.toISOString()
-                : currentSession.startTime,
-
+            endTime: currentSession.endTime,
+            startTime: currentSession.startTime,
         } as ReadingSession
 
-        console.log("session", session)
 
         const response = await readingSessionApi.saveSession(session)
-        console.log("response", response)
         if (!response.success) {
             return rejectWithValue(response.error.message);
         }
@@ -45,8 +38,8 @@ export const saveSession = createAsyncThunk<
 
 interface SessionState {
     readingSession: {
-        startTime: Date | undefined;
-        endTime: Date | undefined;
+        startTime: string | undefined;
+        endTime: string | undefined;
         startPage: number | undefined;
         endPage: number | undefined;
     }
@@ -80,12 +73,10 @@ const sessionSlice = createSlice({
             state.readingSession.endPage = undefined;
         },
         setStartTime: (state) => {
-            console.log("setting start_time")
-            state.readingSession.startTime = new Date();
-            console.log("start_time", state.readingSession.startTime)
+            state.readingSession.startTime = new Date().toISOString();
         },
         setEndTime: (state) => {
-            state.readingSession.endTime = new Date();
+            state.readingSession.endTime = new Date().toISOString();
         },
         setStartPage: (state, action: PayloadAction<number>) => {
             state.readingSession.startPage = action.payload;
@@ -105,7 +96,6 @@ const sessionSlice = createSlice({
                 state.savingSessionInfo.error = null;
             })
             .addCase(saveSession.rejected, (state, action) => {
-                console.log("error", action.payload)
                 state.savingSessionInfo.status = Status.ERROR
                 state.savingSessionInfo.error = action.payload ?? "Unknown error";
             })
