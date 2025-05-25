@@ -24,6 +24,7 @@ import {Test} from "@/types/Test";
 import Message from "@/components/Message";
 import {useAppDispatch} from "@/store";
 import {setCurrentTest} from "@/store/testSlice";
+import {saveSession, setEndPage, setEndTime, setStartPage, setStartTime} from "@/store/sessionSlice";
 
 interface PdfState {
     uri: string | null;
@@ -33,7 +34,7 @@ interface PdfState {
 }
 
 const Reader = () => {
-    const {childId, isChildMode, isParentMode} = useUserMode();
+    const {childId, isChildMode} = useUserMode();
     const {id} = useLocalSearchParams();
 
     const router = useRouter();
@@ -51,7 +52,16 @@ const Reader = () => {
     const [test, setTest] = useState<Test | undefined>()
     const [isMessageOpen, setIsMessageOpen] = useState(false)
 
+    const endSession = () => {
+        dispatch(setEndTime())
+        dispatch(setEndPage(pdfState.currentPage))
+        dispatch(saveSession())
+    }
+
     const onCancel = useCallback(() => {
+        if (isChildMode) {
+            endSession()
+        }
         router.back();
     }, [router]);
 
@@ -59,6 +69,13 @@ const Reader = () => {
         onCancel();
         return true;
     });
+
+    useEffect(() => {
+        if (isChildMode) {
+            dispatch(setStartTime())
+            dispatch(setStartPage(pdfState.currentPage))
+        }
+    }, [isChildMode]);
 
     const downloadBook = async (bookId: string) => {
         try {
@@ -164,6 +181,7 @@ const Reader = () => {
             }));
         }
         if (isChildMode && pdfState.currentPage === test?.endPage) {
+            endSession()
             router.navigate("/testPassing/test")
         }
     };

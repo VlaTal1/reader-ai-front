@@ -5,16 +5,19 @@ import devToolsEnhancer from "redux-devtools-expo-dev-plugin";
 import {AppDispatch, RootState} from "@/types/store";
 import bookSlice from "@/store/bookSlice";
 import testSlice from "@/store/testSlice";
+import sessionSlice from "@/store/sessionSlice";
 
 const actionCreators = {
     ...bookSlice.actions,
     ...testSlice.actions,
+    ...sessionSlice.actions,
 };
 
 export const store = configureStore({
     reducer: {
         book: bookSlice.reducer,
         test: testSlice.reducer,
+        session: sessionSlice.reducer,
     },
     devTools: false,
     enhancers: getDefaultEnhancers => getDefaultEnhancers().concat(devToolsEnhancer({actionCreators})),
