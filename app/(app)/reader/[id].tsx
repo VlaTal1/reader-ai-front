@@ -58,12 +58,12 @@ const Reader = () => {
         dispatch(saveSession())
     }
 
-    const onCancel = useCallback(() => {
+    const onCancel = () => {
         if (isChildMode) {
             endSession()
         }
         router.back();
-    }, [router]);
+    };
 
     useBackHandler(() => {
         onCancel();
