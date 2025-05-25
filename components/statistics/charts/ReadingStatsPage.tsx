@@ -42,7 +42,7 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         const readingTimeData = sortedDates.map((date) => ({
             value: selectedParticipant.dailyStats[date].totalReadingTimeMinutes,
             label: formatDateForDisplay(date),
-            dataPointText: selectedParticipant.dailyStats[date].totalReadingTimeMinutes.toString(),
+            dataPointText: selectedParticipant.dailyStats[date].totalReadingTimeMinutes.toFixed(1),
         }));
 
         const pagesReadData = sortedDates.map((date) => ({
