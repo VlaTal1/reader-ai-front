@@ -42,9 +42,12 @@ const testApi = {
             },
         });
     },
-    fetchFirstTestByParticipantId: async (participantId: string): Promise<ApiResponse<Test>> => {
+    fetchFirstTestByParticipantIdAndBookId: async ({participantId, bookId}: {
+        participantId: string,
+        bookId: string,
+    }): Promise<ApiResponse<Test>> => {
         return apiRequest<Test>({
-            path: `/api/test/participant/${participantId}/firstTest`,
+            path: `/api/test/participant/${participantId}/book/${bookId}/firstTest`,
             method: "GET",
             headers: {
                 "Accept": "application/json",

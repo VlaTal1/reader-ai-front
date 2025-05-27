@@ -22,9 +22,19 @@ import useApi from "@/hooks/useApi";
 import testApi from "@/api/endpoints/testApi";
 import {Test} from "@/types/Test";
 import Message from "@/components/Message";
-import {useAppDispatch} from "@/store";
+import {useAppDispatch, useAppSelector} from "@/store";
 import {setCurrentTest} from "@/store/testSlice";
-import {saveSession, setEndPage, setEndTime, setStartPage, setStartTime} from "@/store/sessionSlice";
+import {
+    saveSession,
+    setEndPage,
+    setEndTime,
+    setProgress,
+    setReadPages,
+    setStartPage,
+    setStartTime,
+    updateProgress,
+} from "@/store/sessionSlice";
+import progressApi from "@/api/endpoints/progressApi";
 
 interface PdfState {
     uri: string | null;
@@ -52,10 +62,13 @@ const Reader = () => {
     const [test, setTest] = useState<Test | undefined>()
     const [isMessageOpen, setIsMessageOpen] = useState(false)
 
+    const readPages = useAppSelector((state) => state.session.progress.readPages)
+
     const endSession = () => {
         dispatch(setEndTime())
         dispatch(setEndPage(pdfState.currentPage))
         dispatch(saveSession())
+        dispatch(updateProgress())
     }
 
     const onCancel = () => {
@@ -73,7 +86,6 @@ const Reader = () => {
     useEffect(() => {
         if (isChildMode) {
             dispatch(setStartTime())
-            dispatch(setStartPage(pdfState.currentPage))
         }
     }, [isChildMode]);
 
@@ -111,8 +123,8 @@ const Reader = () => {
         }
     };
 
-    const fetchFirstTestByParticipantIdApi = useApi(
-        testApi.fetchFirstTestByParticipantId,
+    const fetchFirstTestByParticipantIdAndBookId = useApi(
+        testApi.fetchFirstTestByParticipantIdAndBookId,
         {
             onSuccess: (data) => {
                 setTest(data);
@@ -132,11 +144,41 @@ const Reader = () => {
         },
     );
 
-    const invokeFetchFirstTestByParticipantIdApi = useCallback(() => {
+    const fetchProgressApi = useApi(
+        progressApi.fetchProgress,
+        {
+            onSuccess: (data) => {
+                dispatch(setProgress(data))
+                const currentPage = data.currentPage === 0 ? 1 : data.currentPage;
+                dispatch(setReadPages(data.readPages === 0 ? 1 : data.readPages))
+                setPdfState(prev => ({...prev, currentPage: currentPage}));
+                dispatch(setStartPage(currentPage))
+            },
+            errorHandler: {
+                title: i18n.t("error"),
+                message: `${i18n.t("failed_to_fetch_progress")}\n${i18n.t("please_try_again_later")}`,
+                options: {
+                    tryAgain: true,
+                    cancel: true,
+                },
+            },
+        },
+    );
+
+    const invokeFetchFirstTestByParticipantIdAndBookId = useCallback(() => {
         if (childId) {
-            fetchFirstTestByParticipantIdApi.execute(childId.toString());
+            fetchFirstTestByParticipantIdAndBookId.execute({participantId: childId.toString(), bookId: id.toString()});
         }
-    }, [fetchFirstTestByParticipantIdApi, childId]);
+    }, [fetchFirstTestByParticipantIdAndBookId, childId]);
+
+    const invokeFetchProgressApi = useCallback(() => {
+        if (childId) {
+            fetchProgressApi.execute({
+                participantId: childId.toString(),
+                bookId: id.toString(),
+            });
+        }
+    }, [childId, fetchProgressApi, id]);
 
     useEffect(() => {
         if (id) {
@@ -148,9 +190,15 @@ const Reader = () => {
 
     useEffect(() => {
         if (isChildMode && childId !== undefined) {
-            invokeFetchFirstTestByParticipantIdApi();
+            invokeFetchFirstTestByParticipantIdAndBookId();
         }
     }, [childId, isChildMode]);
+
+    useEffect(() => {
+        if (id) {
+            invokeFetchProgressApi();
+        }
+    }, [id]);
 
     const handlePageChanged = (page: number, totalPages: number) => {
         setPdfState(prev => ({
@@ -179,6 +227,10 @@ const Reader = () => {
                 ...prev,
                 currentPage: newPage,
             }));
+
+            if (!!readPages && newPage > readPages) {
+                dispatch(setReadPages(newPage))
+            }
         }
         if (isChildMode && pdfState.currentPage === test?.endPage) {
             endSession()

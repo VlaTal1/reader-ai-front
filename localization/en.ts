@@ -127,6 +127,7 @@ const en = {
     "completed": "Completed",
     "reading_time": "Reading time",
     "pages": "Pages",
+    "failed_to_fetch_progress": "Failed to fetch progress",
 };
 
 export default en;
