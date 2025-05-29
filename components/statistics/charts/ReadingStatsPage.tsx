@@ -21,7 +21,7 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         const date = new Date(dateStr);
         return `${date.getDate().toString().padStart(2, "0")}.${(date.getMonth() + 1)
             .toString()
-            .padStart(2, "0")}`;
+            .padStart(2, "0")}.${date.getFullYear().toString().slice(-2)}`;
     };
 
     const {readingTimeData, pagesReadData} = useMemo(() => {
@@ -57,7 +57,7 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
     const chartConfig = {
         width: CHART_WIDTH,
         height: 200,
-        spacing: CHART_WIDTH / 6,
+        spacing: CHART_WIDTH / 4,
         endSpacing: 20,
         showDataPointsForAllPoints: true,
         dataPointsColor: "#00BFA6",
