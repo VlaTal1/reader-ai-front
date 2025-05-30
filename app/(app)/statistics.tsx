@@ -16,6 +16,7 @@ import SegmentedControl from "@/components/SegmentedControl";
 import StatisticsChart from "@/components/statistics/charts";
 import {StatisticsType} from "@/types/statistics";
 import {ParticipantDailyStats} from "@/types/statistics/DailyStatistics";
+import {WeeklyStatsByParticipant} from "@/types/statistics/YearStatistics";
 
 
 const StatisticsView = () => {
@@ -24,10 +25,12 @@ const StatisticsView = () => {
     const tabs = useMemo(() => ([
         i18n.t("avg_grade"),
         i18n.t("reading_statistics"),
+        i18n.t("weekly_statistics"),
     ]), [])
 
     const [avgData, setAvgData] = useState<GradeByParticipant[] | undefined>(undefined)
     const [dailyData, setDailyData] = useState<ParticipantDailyStats[] | undefined>(undefined)
+    const [weeklyData, setWeeklyData] = useState<WeeklyStatsByParticipant[] | undefined>(undefined)
 
     const [currentTab, setCurrentTab] = useState(0)
     const [chartType, setChartType] = useState<StatisticsType>("avgGrade")
@@ -39,8 +42,10 @@ const StatisticsView = () => {
         setCurrentTab(newTab)
         if (newTab === 0) {
             setChartType("avgGrade")
-        } else {
+        } else if (newTab === 1) {
             setChartType("daily")
+        } else {
+            setChartType("weekly")
         }
     }
 
@@ -91,11 +96,32 @@ const StatisticsView = () => {
         },
     )
 
+    const getWeeklyApi = useApi(
+        statisticsApi.getWeekly,
+        {
+            onSuccess: (data) => {
+                setWeeklyData(data)
+            },
+            errorHandler: {
+                title: i18n.t("error_header"),
+                message: i18n.t("error_load_statistics"),
+                options: {
+                    tryAgain: true,
+                    navigate: {
+                        mode: "back",
+                    },
+                },
+            },
+        },
+    )
+
     useEffect(() => {
         if (currentTab === 0) {
             getAvgGradeApi.execute()
-        } else {
+        } else if (currentTab === 1) {
             getDailyApi.execute()
+        } else {
+            getWeeklyApi.execute()
         }
     }, [currentTab]);
 
@@ -142,7 +168,12 @@ const StatisticsView = () => {
                             {getAvgGradeApi.loading || !avgData ? (
                                 <ActivityIndicator size="large" color="blue"/>
                             ) : (
-                                <StatisticsChart avgData={avgData} dailyData={dailyData} type={chartType}/>
+                                <StatisticsChart
+                                    avgData={avgData}
+                                    dailyData={dailyData}
+                                    weeklyData={weeklyData}
+                                    type={chartType}
+                                />
                             )}
                         </YStack>
                     </YStack>

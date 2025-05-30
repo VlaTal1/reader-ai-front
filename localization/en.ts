@@ -121,13 +121,18 @@ const en = {
     "test_button_questions_amount": "Questions: %{questionsAmount}",
     "book": "Book",
     "create_test_for_child": "Create test for %{childName}",
-    "avg_grade": "Average grade",
-    "reading_statistics": "Reading statistics",
+    "avg_grade": "Average",
+    "reading_statistics": "Daily",
+    "weekly_statistics": "Weekly",
     "statistics": "Statistics",
     "completed": "Completed",
     "reading_time": "Reading time",
     "pages": "Pages",
     "failed_to_fetch_progress": "Failed to fetch progress",
+    "total_pages": "Total pages",
+    "total_minutes": "Total minutes",
+    "pages_by_week": "Pages by week",
+    "minutes_by_week": "Minutes by week",
 };
 
 export default en;
