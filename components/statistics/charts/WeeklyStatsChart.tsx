@@ -9,6 +9,16 @@ type Props = {
     data: WeeklyStatsByParticipant[];
 };
 
+interface ChartDataItem {
+    label: string;
+    value: number;
+    frontColor: string;
+    topLabelComponent: () => React.JSX.Element;
+    weekKey?: string;
+    minutes?: number;
+    rating?: number;
+}
+
 const {width: SCREEN_WIDTH} = Dimensions.get("window");
 const CHART_WIDTH = SCREEN_WIDTH - 50;
 
@@ -17,16 +27,14 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
         data.length > 0 ? data[0].participant.id : null,
     );
 
-    // Функция для форматирования недели для отображения
     const formatWeekForDisplay = (weekStr: string): string => {
-        // weekStr format: "2024-W15"
         const week = weekStr.split("-W")[1];
         return `W ${week}`;
     };
 
     const {weeklyChartsData, summaryData} = useMemo(() => {
         if (!selectedParticipantId) {
-            return {weeklyChartsData: [], summaryData: {totalPages: 0, totalMinutes: 0, avgRating: 0}};
+            return {weeklyChartsData: {pages: [], time: [], rating: []}, summaryData: {totalPages: 0, totalMinutes: 0, avgRating: 0}};
         }
 
         const selectedParticipant = data.find(
@@ -34,7 +42,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
         );
 
         if (!selectedParticipant) {
-            return {weeklyChartsData: [], summaryData: {totalPages: 0, totalMinutes: 0, avgRating: 0}};
+            return {weeklyChartsData: {pages: [], time: [], rating: []}, summaryData: {totalPages: 0, totalMinutes: 0, avgRating: 0}};
         }
 
         const sortedWeeks = Object.keys(selectedParticipant.weeklyStats).sort();
@@ -44,7 +52,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             return {
                 label: formatWeekForDisplay(week),
                 weekKey: week,
-                value: stats.totalPagesRead, // основное значение для первого графика
+                value: stats.totalPagesRead,
                 frontColor: "#10B981",
                 minutes: Math.round(stats.totalReadingTimeMinutes),
                 rating: Number(stats.averageRating.toFixed(1)),
@@ -54,7 +62,6 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             };
         });
 
-        // Подготовка данных для графика времени
         const timeData = sortedWeeks.map((week) => {
             const stats = selectedParticipant.weeklyStats[week];
             return {
@@ -67,7 +74,6 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             };
         });
 
-        // Подготовка данных для графика оценок
         const ratingData = sortedWeeks.map((week) => {
             const stats = selectedParticipant.weeklyStats[week];
             return {
@@ -80,7 +86,6 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             };
         });
 
-        // Расчет общей статистики
         const summaryData = {
             totalPages: sortedWeeks.reduce((sum, week) => sum + selectedParticipant.weeklyStats[week].totalPagesRead, 0),
             totalMinutes: Math.round(sortedWeeks.reduce((sum, week) => sum + selectedParticipant.weeklyStats[week].totalReadingTimeMinutes, 0)),
@@ -111,7 +116,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
         isAnimated: true,
         animationDuration: 800,
         noOfSections: 4,
-        maxValue: undefined, // будет рассчитываться динамически
+        maxValue: undefined,
     };
 
     const renderParticipantSelector = () => (
@@ -147,7 +152,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
 
     const renderChart = (
         title: string,
-        chartData: any[],
+        chartData: ChartDataItem[],
         maxValueOverride?: number,
     ) => {
         if (chartData.length === 0) {
@@ -159,7 +164,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             );
         }
 
-        const maxValue = maxValueOverride || Math.max(...chartData.map((item) => item?.value));
+        const maxValue = maxValueOverride || Math.max(...chartData.map((item) => item.value));
         const adjustedMaxValue = maxValue + Math.ceil(maxValue * 0.2);
 
         return (
@@ -205,33 +210,17 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
                 {renderSummaryCards()}
 
                 <View style={styles.chartsContainer}>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/*@ts-expect-error*/}
                     {weeklyChartsData.pages && renderChart(
                         i18n.t("pages_by_week"),
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-expect-error
                         weeklyChartsData.pages,
                     )}
 
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/*@ts-expect-error*/}
                     {weeklyChartsData.time && renderChart(
                         i18n.t("minutes_by_week"),
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-expect-error
                         weeklyChartsData.time,
                     )}
-
-                    {/*{weeklyChartsData.rating && renderChart(*/}
-                    {/*    "Средняя оценка по неделям",*/}
-                    {/*    weeklyChartsData.rating,*/}
-                    {/*    5, // максимальное значение для оценок*/}
-                    {/*)}*/}
                 </View>
 
-                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                {/*@ts-expect-error*/}
                 {weeklyChartsData.pages?.length === 0 && (
                     <View style={styles.noDataContainer}>
                         <Text style={styles.noDataText}>Нет данных для отображения</Text>
