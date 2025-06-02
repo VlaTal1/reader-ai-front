@@ -220,6 +220,11 @@ const Reader = () => {
     };
 
     const goToNextPage = () => {
+        if (isChildMode && pdfState.currentPage === test?.endPage) {
+            endSession()
+            router.navigate("/testPassing/test")
+            return
+        }
         if (pdfState.currentPage < pdfState.totalPages) {
             const newPage = pdfState.currentPage + 1;
 
@@ -231,10 +236,6 @@ const Reader = () => {
             if (!!readPages && newPage > readPages) {
                 dispatch(setReadPages(newPage))
             }
-        }
-        if (isChildMode && pdfState.currentPage === test?.endPage) {
-            endSession()
-            router.navigate("/testPassing/test")
         }
     };
 
