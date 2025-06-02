@@ -148,7 +148,7 @@ const Tests = () => {
                                     </TouchableOpacity>
                                 </LabelledInput>
                             )}
-                            <YStack gap={6}>
+                            <YStack gap={6} paddingBottom={80}>
                                 {
                                     tests.map((test) => (
                                         <TestButton key={test.id} test={test}/>

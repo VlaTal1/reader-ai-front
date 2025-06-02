@@ -172,7 +172,7 @@ const ParticipantDetails = () => {
                             <CustomText size="h4Regular" width="100%" textAlign="center">
                                 {i18n.t("tests")}
                             </CustomText>
-                            <YStack gap={6}>
+                            <YStack gap={6} paddingBottom={80}>
                                 {
                                     tests.map((test) => (
                                         <TestButton key={test.id} test={test}/>

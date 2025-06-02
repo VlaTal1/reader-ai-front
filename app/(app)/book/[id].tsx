@@ -146,7 +146,7 @@ const BookDetails = () => {
                             <CustomText size="h4Regular" width="100%" textAlign="center">
                                 {i18n.t("list_of_accesses")}
                             </CustomText>
-                            <YStack gap={6}>
+                            <YStack gap={6} paddingBottom={80}>
                                 {
                                     book.accesses.map((access) => (
                                         <ParticipantButton
