@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {XStack, YStack} from "tamagui";
+import {ScrollView, XStack, YStack} from "tamagui";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import {ActivityIndicator} from "react-native";
@@ -172,13 +172,15 @@ const ParticipantDetails = () => {
                             <CustomText size="h4Regular" width="100%" textAlign="center">
                                 {i18n.t("tests")}
                             </CustomText>
-                            <YStack gap={6} paddingBottom={80}>
-                                {
-                                    tests.map((test) => (
-                                        <TestButton key={test.id} test={test}/>
-                                    ))
-                                }
-                            </YStack>
+                            <ScrollView contentContainerStyle={{paddingBottom: 180}}>
+                                <YStack gap={6}>
+                                    {
+                                        tests.map((test) => (
+                                            <TestButton key={test.id} test={test}/>
+                                        ))
+                                    }
+                                </YStack>
+                            </ScrollView>
                         </YStack>
                     )}
                 </YStack>
@@ -194,7 +196,7 @@ const ParticipantDetails = () => {
             <CreateTestModal
                 onClose={() => setIsCreateTestModalOpen(false)}
                 isOpen={isCreateTestModalOpen}
-                onSave={invokeFetchTestsByParticipantIdApi}
+                onSave={invokeFetchTestsByParticipantIdAndBookIdApi}
                 participantId={participant.id}
                 participantName={participant.name}
             />
