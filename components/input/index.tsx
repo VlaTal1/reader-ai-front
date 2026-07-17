@@ -42,7 +42,7 @@ const Input: FC<Props> = (
         maxLength,
     },
 ) => {
-    const inputRef = React.useRef<TInput>(null);
+    const inputRef = React.useRef<React.ElementRef<typeof TInput>>(null);
 
     const handleIconPress = () => {
         inputRef.current?.focus();

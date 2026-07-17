@@ -21,6 +21,7 @@ export default {
         userInterfaceStyle: "automatic",
         newArchEnabled: true,
         ios: {
+            bundleIdentifier: "com.vlatalorg.readerai",
             supportsTablet: true,
         },
         android: {
@@ -69,7 +70,7 @@ export default {
             typedRoutes: true,
         },
         extra: {
-            apiBaseUrl: process.env.API_BASE_URL,
+            apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
             supabaseUrl: process.env.SUPABASE_URL,
             supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
             environment: ENV,

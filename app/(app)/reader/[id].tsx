@@ -4,7 +4,7 @@ import {useLocalSearchParams, useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import Pdf from "react-native-pdf";
 import {ActivityIndicator, Dimensions} from "react-native";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 
 import CustomStackScreen from "@/components/CustomStackScreen";
 import i18n from "@/localization/i18n";
@@ -264,7 +264,7 @@ const Reader = () => {
         return undefined;
     }
 
-    const pdfRef = React.useRef<Pdf>(null);
+    const pdfRef = React.useRef<React.ElementRef<typeof Pdf>>(null);
 
     return (
         <>

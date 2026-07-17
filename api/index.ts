@@ -310,6 +310,7 @@ const apiRequest = async <T>(config: RequestConfig): Promise<ApiResponse<T>> => 
                 : await getAccessToken();
 
             if (!authToken) {
+                console.log("[API DEBUG] ⚠️ No auth token available! Request to:", path, "will fail with 403");
                 const error = {
                     code: ApiErrorCode.UNAUTHORIZED,
                     message: "Access token is not set",
@@ -323,6 +324,9 @@ const apiRequest = async <T>(config: RequestConfig): Promise<ApiResponse<T>> => 
             }
 
             requestHeaders["Authorization"] = `Bearer ${authToken}`;
+            console.log("[API DEBUG] ✅ Token set for:", path, "| length:", authToken.length);
+        } else {
+            console.log("[API DEBUG] accessToken=false for:", path);
         }
 
         if (responseType === "json" && !requestHeaders["Content-Type"] && !(body instanceof FormData)) {
