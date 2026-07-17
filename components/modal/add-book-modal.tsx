@@ -2,7 +2,7 @@ import React, {FC, useCallback, useState} from "react";
 import {ScrollView, XStack, YStack} from "tamagui";
 import {Controller, useForm} from "react-hook-form";
 import * as DocumentPicker from "expo-document-picker";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import {ActivityIndicator} from "react-native";
 
 import {isBlank} from "@/functions";
@@ -101,15 +101,13 @@ const AddBookModal: FC<Props> = ({onClose, isOpen, onSave}) => {
                 return;
             }
 
-            // Create file object for FormData
-            const fileToUpload = {
-                uri: fileUri,
-                type: data.file.mimeType || "application/octet-stream",
-                name: data.file.name,
-            };
+            // Fetch the file locally and convert it to a Blob
+            const response = await fetch(fileUri);
+            const rawBlob = await response.blob();
+            const blob = new Blob([rawBlob], { type: data.file.mimeType || "application/octet-stream" });
 
-            // @ts-expect-error - React Native's FormData implementation accepts this format
-            formData.append("file", fileToUpload);
+            // Create file object for FormData
+            formData.append("file", blob, data.file.name);
 
             // Upload the book
             await uploadBookApi.execute({formData}).then(onSave);
