@@ -1,5 +1,6 @@
 import React, {FC, useMemo} from "react";
-import {ThemeableStack, XStack, YStack} from "tamagui";
+import {GetProps, ThemeableStack, XStack, YStack} from "tamagui";
+import Feather from "@expo/vector-icons/Feather";
 
 import {CustomText} from "@/components/CustomText";
 import {Test} from "@/types/Test";
@@ -7,67 +8,113 @@ import i18n from "@/localization/i18n";
 import CompleteStatus from "@/types/CompleteStatus";
 
 type Props = {
-    test: Test
-    onPress?: () => void
-    disabled?: boolean
-}
-const TestButton: FC<Props> = ({test, onPress, disabled = false}) => {
-    const backgroundColor = useMemo(() => {
-        if (test.completed === CompleteStatus.COMPLETED) {
-            return "#b0de61"
-        } else if (test.completed === CompleteStatus.IN_PROGRESS) {
-            return "#e8d094"
+    test: Test;
+    onPress?: () => void;
+    disabled?: boolean;
+} & GetProps<typeof ThemeableStack>;
+
+const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
+    const statusDetails = useMemo(() => {
+        switch (test.completed) {
+            case CompleteStatus.COMPLETED:
+                return {
+                    bg: "#ECFDF5",
+                    text: "#059669",
+                    label: i18n.t("COMPLETED") || "Completed",
+                };
+            case CompleteStatus.IN_PROGRESS:
+                return {
+                    bg: "#FFFBEB",
+                    text: "#D97706",
+                    label: i18n.t("IN_PROGRESS") || "In Progress",
+                };
+            default:
+                return {
+                    bg: "#F8FAFC",
+                    text: "#64748B",
+                    label: i18n.t("NOT_STARTED") || "Not Started",
+                };
         }
-        return "$gray-100"
-    }, [test.completed])
+    }, [test.completed]);
 
     return (
         <ThemeableStack
             pressStyle={{
-                opacity: 0.8,
+                opacity: 0.9,
+                scale: 0.98,
             }}
             onPress={onPress}
             disabled={disabled}
+            {...props}
         >
             <YStack
-                backgroundColor={backgroundColor}
-                borderRadius={20}
-                paddingHorizontal={20}
-                paddingVertical={10}
-                justifyContent="space-between"
-                gap={10}
+                backgroundColor="#FFFFFF"
+                borderRadius={16}
+                padding={16}
+                borderWidth={1}
+                borderColor="$gray-85"
+                gap={12}
             >
-                <XStack justifyContent="space-between">
-                    <CustomText size="h5Regular" numberOfLines={1}>
-                        {test.progress.book.title}
-                    </CustomText>
-                    {/*{isParentMode && (*/}
-                    {/*    <CustomText size="h5Regular" numberOfLines={1}>*/}
-                    {/*        {i18n.t("test_button_child_name", {childName: test.progress.participant.name})}*/}
-                    {/*    </CustomText>*/}
-                    {/*)}*/}
+                <XStack justifyContent="space-between" alignItems="flex-start" gap={8}>
+                    <YStack gap={2} flex={1}>
+                        <CustomText size="h5Medium" color="$gray-20" numberOfLines={2}>
+                            {test.progress.book.title}
+                        </CustomText>
+                        <CustomText size="p3Regular" color="$gray-40">
+                            {test.progress.book.author}
+                        </CustomText>
+                    </YStack>
+                    <XStack
+                        backgroundColor={statusDetails.bg}
+                        paddingHorizontal={8}
+                        paddingVertical={4}
+                        borderRadius={8}
+                        alignItems="center"
+                    >
+                        <CustomText
+                            size="p3Medium"
+                            color={statusDetails.text}
+                            style={{fontSize: 11}}
+                        >
+                            {statusDetails.label}
+                        </CustomText>
+                    </XStack>
                 </XStack>
-                <YStack>
-                    <CustomText size="p1Regular" numberOfLines={1}>
-                        {i18n.t("pages_range", {start: test.startPage, end: test.endPage})}
-                    </CustomText>
-                    <CustomText size="p1Regular" numberOfLines={1}>
-                        {i18n.t("test_button_questions_amount", {questionsAmount: test.questionsAmount})}
-                    </CustomText>
-                </YStack>
-                <XStack justifyContent="space-between">
-                    <CustomText size="p1Regular" numberOfLines={1}>
-                        {`${i18n.t("test_status")} ${i18n.t(test.completed)}`}
-                    </CustomText>
-                    {test.completed === CompleteStatus.COMPLETED && (
-                        <CustomText size="p1Regular" numberOfLines={1}>
+
+                <XStack gap={16} paddingVertical={4} borderTopWidth={1} borderTopColor="$gray-93" paddingTop={10}>
+                    <XStack alignItems="center" gap={6}>
+                        <Feather name="book-open" size={14} color="#94A3B8" />
+                        <CustomText size="p2Regular" color="$gray-40">
+                            {i18n.t("pages_range", {start: test.startPage, end: test.endPage})}
+                        </CustomText>
+                    </XStack>
+                    <XStack alignItems="center" gap={6}>
+                        <Feather name="help-circle" size={14} color="#94A3B8" />
+                        <CustomText size="p2Regular" color="$gray-40">
+                            {i18n.t("test_button_questions_amount", {questionsAmount: test.questionsAmount})}
+                        </CustomText>
+                    </XStack>
+                </XStack>
+
+                {test.completed === CompleteStatus.COMPLETED && (
+                    <XStack
+                        justifyContent="space-between"
+                        alignItems="center"
+                        backgroundColor="#F5F3FF"
+                        padding={10}
+                        borderRadius={10}
+                    >
+                        <CustomText size="p2Medium" color="#6366F1">
+                            {i18n.t("test_status") || "Status:"} {i18n.t("COMPLETED")}
+                        </CustomText>
+                        <CustomText size="p2Medium" color="#6366F1">
                             {i18n.t("result_grade", {grade: test.grade})}
                         </CustomText>
-                    )}
-                </XStack>
+                    </XStack>
+                )}
             </YStack>
         </ThemeableStack>
     );
-}
+};
 
 export default TestButton;

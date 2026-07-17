@@ -414,9 +414,9 @@ const Login = () => {
 
                 <YStack
                     backgroundColor="white"
-                    paddingHorizontal={16}
-                    borderTopLeftRadius={20}
-                    borderTopRightRadius={20}
+                    paddingHorizontal={24}
+                    borderTopLeftRadius={30}
+                    borderTopRightRadius={30}
                     width="100%"
                     paddingBottom={24}
                 >
@@ -461,9 +461,9 @@ const Login = () => {
 
             <YStack
                 backgroundColor="white"
-                paddingHorizontal={16}
-                borderTopLeftRadius={20}
-                borderTopRightRadius={20}
+                paddingHorizontal={24}
+                borderTopLeftRadius={30}
+                borderTopRightRadius={30}
                 width="100%"
                 paddingBottom={24}
             >

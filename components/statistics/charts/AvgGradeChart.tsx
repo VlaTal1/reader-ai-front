@@ -126,28 +126,28 @@ const AvgGradeChart: React.FC<Props> = ({
                     index === selectedIndex && styles.selectedCard,
                 ]}
             >
-                <CustomText size="h4Medium" color="$gray-0">
+                <CustomText size="h4Medium" color="$gray-20">
                     {item.participant.name}
                 </CustomText>
                 <View gap={2}>
                     <XStack justifyContent="space-between">
-                        <CustomText size="p1Regular" color="$gray-0">
+                        <CustomText size="p1Regular" color="$gray-40">
                             {i18n.t("tests")}
                         </CustomText>
-                        <CustomText size="p1Regular" color="$gray-0">
+                        <CustomText size="p1Regular" color="$gray-20">
                             {item.completedTests} / {item.totalTests}
                         </CustomText>
                     </XStack>
                     <XStack justifyContent="space-between">
-                        <CustomText size="p1Regular" color="$gray-0">
+                        <CustomText size="p1Regular" color="$gray-40">
                             {i18n.t("completed")}
                         </CustomText>
-                        <CustomText size="p1Regular" color="$gray-0">
+                        <CustomText size="p1Regular" color="$gray-20">
                             {completionRate.toFixed(0)}%
                         </CustomText>
                     </XStack>
                     <XStack justifyContent="space-between">
-                        <CustomText size="p1Regular" color="$gray-0">
+                        <CustomText size="p1Regular" color="$gray-40">
                             {i18n.t("avg_grade")}
                         </CustomText>
                         <CustomText size="p1Regular" color={gradeColor}>
@@ -274,19 +274,22 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: "#fff",
-        borderRadius: 12,
+        borderRadius: 16,
         padding: 15,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 4,
         },
-        shadowOpacity: 0.1,
-        shadowRadius: 3.84,
-        elevation: 5,
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2,
+        borderWidth: 1,
+        borderColor: "#F1F5F9",
     },
     selectedCard: {
-        backgroundColor: "#f5f9fc",
+        backgroundColor: "#F8FAFC",
+        borderColor: "#E2E8F0",
     },
     cardName: {
         fontSize: 16,

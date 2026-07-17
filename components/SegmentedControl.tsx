@@ -23,8 +23,10 @@ const SegmentedControl: React.FC<Props> = ({options, currentTab, onChange, varia
     return (
         <XStack
             backgroundColor={variant === "gray" ? "$gray-93" : "$gray-100"}
-            padding={6}
-            borderRadius={12}
+            padding={4}
+            borderRadius={16}
+            borderWidth={1}
+            borderColor="$gray-85"
         >
             <View
                 position="absolute"
@@ -32,13 +34,13 @@ const SegmentedControl: React.FC<Props> = ({options, currentTab, onChange, varia
                 bottom={0}
                 left={0}
                 right={0}
-                padding={6}
+                padding={4}
             >
                 <Animated.View
                     style={[
                         {
-                            backgroundColor: "#333333",
-                            borderRadius: 8,
+                            backgroundColor: "#6366F1",
+                            borderRadius: 12,
                             width: `${itemWidth}%`,
                             flex: 1,
                         },
@@ -51,7 +53,7 @@ const SegmentedControl: React.FC<Props> = ({options, currentTab, onChange, varia
                     key={option}
                     onPress={() => onChange(index)}
                     flex={1}
-                    borderRadius={8}
+                    borderRadius={12}
                     paddingVertical={6}
                     paddingHorizontal={4}
                 >

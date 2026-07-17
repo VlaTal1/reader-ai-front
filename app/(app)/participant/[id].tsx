@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {ScrollView, XStack, YStack} from "tamagui";
+import {ScrollView, View, XStack, YStack} from "tamagui";
 import {useLocalSearchParams, useRouter} from "expo-router";
 import {useBackHandler} from "@react-native-community/hooks";
 import {ActivityIndicator} from "react-native";
@@ -161,19 +161,71 @@ const ParticipantDetails = () => {
                     </XStack>
                 </Header>
 
-                <YStack flex={1} paddingHorizontal={16} gap={20}>
-                    <YStack>
-                        <CustomText size="h2">
-                            {participant.name}
-                        </CustomText>
+                <YStack flex={1} paddingHorizontal={16} gap={24}>
+                    
+                    {/* Participant Profile Card */}
+                    <YStack
+                        backgroundColor="#FFFFFF"
+                        borderRadius={24}
+                        padding={24}
+                        alignItems="center"
+                        borderWidth={1}
+                        borderColor="$gray-85"
+                        gap={16}
+                        style={{
+                            shadowColor: "rgba(0, 0, 0, 0.02)",
+                            shadowOffset: {width: 0, height: 4},
+                            shadowRadius: 8,
+                            shadowOpacity: 0.1,
+                        }}
+                    >
+                        {(() => {
+                            const colors = [
+                                { bg: "#E0F2FE", text: "#0284C7" }, // Light Blue
+                                { bg: "#F3E8FF", text: "#7E22CE" }, // Lavender/Purple
+                                { bg: "#FCE7F3", text: "#BE185D" }, // Soft Pink
+                                { bg: "#FEF3C7", text: "#B45309" }, // Soft Amber
+                                { bg: "#D1FAE5", text: "#047857" }, // Mint Green
+                            ];
+                            const nameCode = participant.name
+                                ? participant.name.split("").reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0)
+                                : 0;
+                            const themeColor = colors[nameCode % colors.length];
+                            const initial = participant.name ? participant.name.charAt(0).toUpperCase() : "?";
+
+                            return (
+                                <View
+                                    width={64}
+                                    height={64}
+                                    borderRadius={32}
+                                    backgroundColor={themeColor.bg}
+                                    alignItems="center"
+                                    justifyContent="center"
+                                >
+                                    <CustomText size="h3Medium" color={themeColor.text}>
+                                        {initial}
+                                    </CustomText>
+                                </View>
+                            );
+                        })()}
+
+                        <YStack alignItems="center" gap={4}>
+                            <CustomText size="h2" color="$gray-20" textAlign="center">
+                                {participant.name}
+                            </CustomText>
+                            <CustomText size="p2Regular" color="$gray-40" textAlign="center">
+                                Student Account Profile
+                            </CustomText>
+                        </YStack>
                     </YStack>
+
                     {isParentMode && (
-                        <YStack gap={16}>
-                            <CustomText size="h4Regular" width="100%" textAlign="center">
-                                {i18n.t("tests")}
+                        <YStack gap={12} flex={1}>
+                            <CustomText size="h5Medium" color="$gray-20" paddingLeft={4}>
+                                {i18n.t("tests") || "Assigned Reading Assessments"}
                             </CustomText>
                             <ScrollView contentContainerStyle={{paddingBottom: 180}}>
-                                <YStack gap={6}>
+                                <YStack gap={10}>
                                     {
                                         tests.map((test) => (
                                             <TestButton key={test.id} test={test}/>

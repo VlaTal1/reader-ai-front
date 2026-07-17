@@ -59,23 +59,27 @@ const Home = () => {
                         </Circle>
                     </XStack>
                 </View>
-                <XStack flexDirection="column" gap={6}>
+                <XStack flexDirection="column" gap={10}>
                     <HomeMenuCard
                         title={i18n.t("books")}
+                        type="books"
                         onPress={() => router.navigate("/books")}
                     />
                     <HomeMenuCard
                         title={i18n.t("tests")}
+                        type="tests"
                         onPress={() => router.navigate("/tests")}
                     />
                     {isParentMode && (
                         <HomeMenuCard
                             title={i18n.t("children")}
+                            type="participants"
                             onPress={() => router.navigate("/participants")}
                         />
                     )}
                     <HomeMenuCard
                         title={i18n.t("statistics")}
+                        type="statistics"
                         onPress={() => router.navigate("/statistics")}
                     />
                 </XStack>

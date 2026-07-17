@@ -35,13 +35,13 @@ const PrimaryButton: FC<Props> = (
         <Button
             onPress={onPress}
             disabled={disabled}
-            backgroundColor="$gray-20"
-            color="$gray-20"
+            backgroundColor="$accent-regular"
+            color="$accent-regular"
             width={width}
             height="auto"
-            borderRadius={12}
-            padding={12}
-            pressStyle={{backgroundColor: "$backgroundPress"}}
+            borderRadius={16}
+            padding={14}
+            pressStyle={{backgroundColor: "$accent-pressed"}}
             disabledStyle={{backgroundColor: "$accent-disabled"}}
             flex={flex}
         >

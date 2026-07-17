@@ -34,7 +34,7 @@ export default function Root() {
         return null;
     }
 
-    const backgroundColor = "#E0E0DC"
+    const backgroundColor = "#FAF8F5"
 
     return (
         <LanguageProvider>

@@ -35,14 +35,14 @@ const SecondaryButton: FC<Props> = ({
             backgroundColor={filled ? "$gray-100" : "transparent"}
             width={width}
             height="auto"
-            borderRadius={12}
-            padding={12}
+            borderRadius={16}
+            padding={14}
             borderColor="$gray-75"
             pressStyle={{
-                borderColor: "$gray-20",
-                backgroundColor: filled ? "$gray-100" : "transparent",
+                borderColor: "$accent-regular",
+                backgroundColor: filled ? "$gray-93" : "transparent",
             }}
-            disabledStyle={{borderColor: "$gray-75"}}
+            disabledStyle={{borderColor: "$gray-85"}}
             flex={flex}
         >
             {Icon && iconPosition === "left" ? (
