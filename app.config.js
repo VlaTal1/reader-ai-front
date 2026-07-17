@@ -42,6 +42,8 @@ export default {
             favicon: "./assets/images/favicon.png",
         },
         plugins: [
+            "expo-status-bar",
+            "expo-web-browser",
             [
                 "expo-build-properties",
                 {
