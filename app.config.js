@@ -23,6 +23,9 @@ export default {
         ios: {
             bundleIdentifier: "com.vlatalorg.readerai",
             supportsTablet: true,
+            infoPlist: {
+                NSMicrophoneUsageDescription: "Мікрофон потрібен для замірювання швидкості читання вголос",
+            },
         },
         android: {
             adaptiveIcon: {
@@ -65,12 +68,14 @@ export default {
             ],
             "expo-localization",
             "expo-font",
+            "expo-audio",
         ],
         experiments: {
             typedRoutes: true,
         },
         extra: {
             apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+            pythonWsBaseUrl: process.env.EXPO_PUBLIC_PYTHON_WS_BASE_URL,
             supabaseUrl: process.env.SUPABASE_URL,
             supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
             environment: ENV,

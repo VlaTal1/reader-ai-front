@@ -6,7 +6,7 @@ import {CustomText} from "@/components/CustomText";
 
 type HomeMenuCardProps = {
     title: string;
-    type: "books" | "tests" | "participants" | "statistics";
+    type: "books" | "tests" | "participants" | "statistics" | "readingSpeed";
     onPress?: () => void;
     disabled?: boolean;
 } & GetProps<typeof ThemeableStack>;
@@ -41,6 +41,12 @@ export const HomeMenuCard = ({title, type, onPress, disabled, ...props}: HomeMen
             iconColor = "#F59E0B";
             iconBg = "#FFFBEB";
             description = "Monitor times & performance metrics";
+            break;
+        case "readingSpeed":
+            iconName = "mic";
+            iconColor = "#EC4899";
+            iconBg = "#FDF2F8";
+            description = "Measure reading speed & accuracy";
             break;
     }
 

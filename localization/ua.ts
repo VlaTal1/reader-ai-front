@@ -5,6 +5,19 @@ const en = {
     "failed_to_fetch_books": "Неможливо отримати книги",
     "please_try_again_later": "Будь ласка, спробуйте пізніше",
     "back": "Назад",
+    "reading_speed_title": "Швидкість читання",
+    "reading_speed_description": "Читай текст вголос. Слова підсвічуватимуться по мірі читання: зелений — правильно, червоний — помилка, сірий — пропущено.",
+    "reading_speed_select_child": "Обери профіль дитини, щоб почати",
+    "reading_speed_start": "Почати читання",
+    "reading_speed_stop": "Зупинити",
+    "reading_speed_try_again": "Спробувати ще раз",
+    "reading_speed_wpm": "Слів на хвилину",
+    "reading_speed_accuracy": "Точність",
+    "reading_speed_correct": "Правильних слів",
+    "reading_speed_errors": "Помилок",
+    "reading_speed_skipped": "Пропущено",
+    "microphone_permission_denied": "Для замірювання швидкості читання потрібен доступ до мікрофона",
+    "reading_speed_connection_failed": "Не вдалося підключитися. Спробуйте ще раз.",
 };
 
 export default en;

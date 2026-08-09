@@ -70,6 +70,13 @@ const Home = () => {
                         type="tests"
                         onPress={() => router.navigate("/tests")}
                     />
+                    {!isParentMode && (
+                        <HomeMenuCard
+                            title={i18n.t("reading_speed_title")}
+                            type="readingSpeed"
+                            onPress={() => router.navigate("/readingSpeed")}
+                        />
+                    )}
                     {isParentMode && (
                         <HomeMenuCard
                             title={i18n.t("children")}
