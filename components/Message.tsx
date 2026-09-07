@@ -16,12 +16,12 @@ const styles = {
     regular: {
         background: "$gray-100",
         textColor: "$gray-20",
-        iconColor: "#333333",
+        iconColor: "#3A2E20",
     },
     error: {
         background: "$error-primary",
         textColor: "$error-highlight",
-        iconColor: "#F5E6E6",
+        iconColor: "#FBEAE8",
     },
 }
 
@@ -32,7 +32,7 @@ const Message: FC<MessageProps> = ({message, onClose, variant}) => {
         <Shadow offset={[5, 5]} distance={10} startColor="hsla(0, 0%, 0%, 0.1)">
             <View
                 backgroundColor={appropriateStyles.background}
-                borderRadius={8}
+                borderRadius={16}
                 flexDirection="row"
                 alignItems="flex-start"
                 gap={10}

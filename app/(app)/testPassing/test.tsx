@@ -32,7 +32,7 @@ const Test = () => {
                 <CustomStackScreen/>
                 <YStack flex={1}>
                     <YStack flex={1} justifyContent="center" alignItems="center">
-                        <ActivityIndicator size="large" color="#6366F1"/>
+                        <ActivityIndicator size="large" color="#CB5A2E"/>
                     </YStack>
                 </YStack>
             </>
@@ -65,15 +65,15 @@ const Test = () => {
                         <CustomText size="p3Medium" color="$gray-40">
                             READING ASSESSMENT
                         </CustomText>
-                        <CustomText size="p3Medium" color="#6366F1">
+                        <CustomText size="p3Medium" color="#CB5A2E">
                             {`Question ${currentQuestionIndex + 1} of ${currentTest.questions.length}`}
                         </CustomText>
                     </XStack>
-                    <View backgroundColor="$gray-85" height={8} borderRadius={4} overflow="hidden">
+                    <View backgroundColor="$gray-85" height={8} borderRadius={999} overflow="hidden">
                         <View
-                            backgroundColor="#6366F1"
+                            backgroundColor="#CB5A2E"
                             height="100%"
-                            borderRadius={4}
+                            borderRadius={999}
                             style={{width: `${progressPercent}%`}}
                         />
                     </View>
@@ -82,7 +82,7 @@ const Test = () => {
                 {/* Question Card */}
                 <YStack
                     backgroundColor="#FFFFFF"
-                    borderRadius={24}
+                    borderRadius={28}
                     padding={24}
                     borderWidth={1}
                     borderColor="$gray-85"
@@ -108,28 +108,28 @@ const Test = () => {
                             >
                                 <XStack
                                     backgroundColor="#FFFFFF"
-                                    borderRadius={16}
+                                    borderRadius={20}
                                     padding={16}
                                     alignItems="center"
                                     borderWidth={1}
                                     borderColor="$gray-85"
                                     gap={16}
                                     style={{
-                                        shadowColor: "rgba(0, 0, 0, 0.02)",
+                                        shadowColor: "rgba(43, 32, 19, 0.08)",
                                         shadowOffset: {width: 0, height: 2},
                                         shadowRadius: 4,
-                                        shadowOpacity: 0.1,
+                                        shadowOpacity: 1,
                                     }}
                                 >
                                     <View
                                         width={36}
                                         height={36}
                                         borderRadius={18}
-                                        backgroundColor="#EEF2F6"
+                                        backgroundColor="#FBEAD9"
                                         alignItems="center"
                                         justifyContent="center"
                                     >
-                                        <CustomText size="p2Medium" color="#6366F1">
+                                        <CustomText size="p2Medium" color="#CB5A2E">
                                             {optionLabel}
                                         </CustomText>
                                     </View>

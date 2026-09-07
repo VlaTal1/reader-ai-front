@@ -20,6 +20,7 @@ import {Test} from "@/types/Test";
 import TestButton from "@/components/buttons/TestButton";
 import CreateTestModal from "@/components/modal/create-test-modal";
 import {useAppSelector} from "@/store";
+import {getAvatarColor, getInitial} from "@/constants/avatarPalette";
 
 const ParticipantDetails = () => {
     const {isParentMode} = useUserMode();
@@ -139,7 +140,7 @@ const ParticipantDetails = () => {
                         </XStack>
                     </Header>
                     <YStack flex={1} justifyContent="center" alignItems="center">
-                        <ActivityIndicator size="large" color="#0000ff"/>
+                        <ActivityIndicator size="large" color="#CB5A2E"/>
                     </YStack>
                 </YStack>
             </>
@@ -166,32 +167,22 @@ const ParticipantDetails = () => {
                     {/* Participant Profile Card */}
                     <YStack
                         backgroundColor="#FFFFFF"
-                        borderRadius={24}
+                        borderRadius={28}
                         padding={24}
                         alignItems="center"
                         borderWidth={1}
                         borderColor="$gray-85"
                         gap={16}
                         style={{
-                            shadowColor: "rgba(0, 0, 0, 0.02)",
+                            shadowColor: "rgba(43, 32, 19, 0.08)",
                             shadowOffset: {width: 0, height: 4},
-                            shadowRadius: 8,
-                            shadowOpacity: 0.1,
+                            shadowRadius: 10,
+                            shadowOpacity: 1,
                         }}
                     >
                         {(() => {
-                            const colors = [
-                                { bg: "#E0F2FE", text: "#0284C7" }, // Light Blue
-                                { bg: "#F3E8FF", text: "#7E22CE" }, // Lavender/Purple
-                                { bg: "#FCE7F3", text: "#BE185D" }, // Soft Pink
-                                { bg: "#FEF3C7", text: "#B45309" }, // Soft Amber
-                                { bg: "#D1FAE5", text: "#047857" }, // Mint Green
-                            ];
-                            const nameCode = participant.name
-                                ? participant.name.split("").reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0)
-                                : 0;
-                            const themeColor = colors[nameCode % colors.length];
-                            const initial = participant.name ? participant.name.charAt(0).toUpperCase() : "?";
+                            const themeColor = getAvatarColor(participant.name);
+                            const initial = getInitial(participant.name);
 
                             return (
                                 <View
@@ -214,7 +205,7 @@ const ParticipantDetails = () => {
                                 {participant.name}
                             </CustomText>
                             <CustomText size="p2Regular" color="$gray-40" textAlign="center">
-                                Student Account Profile
+                                {i18n.t("student_account_profile") || "Reading profile"}
                             </CustomText>
                         </YStack>
                     </YStack>

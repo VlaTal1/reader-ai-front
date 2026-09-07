@@ -23,6 +23,10 @@ export default function Root() {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         GeistMedium: require("@/assets/fonts/Geist/Geist-Medium.otf"),
         // eslint-disable-next-line @typescript-eslint/no-require-imports
+        GeistSemiBold: require("@/assets/fonts/Geist/Geist-SemiBold.otf"),
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        GeistBold: require("@/assets/fonts/Geist/Geist-Bold.otf"),
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         InterLight: require("@/assets/fonts/Inter/InterDisplay-Light.otf"),
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         InterRegular: require("@/assets/fonts/Inter/InterDisplay-Regular.otf"),
@@ -34,7 +38,7 @@ export default function Root() {
         return null;
     }
 
-    const backgroundColor = "#FAF8F5"
+    const backgroundColor = "#F6EFE1"
 
     return (
         <LanguageProvider>

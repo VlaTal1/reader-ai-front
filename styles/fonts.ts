@@ -38,10 +38,14 @@ export const Geist = createFont({
     weight: {
         1: 400,
         2: 500,
+        3: 600,
+        4: 700,
     },
     face: {
         400: {normal: "GeistRegular"},
         500: {normal: "GeistMedium"},
+        600: {normal: "GeistSemiBold"},
+        700: {normal: "GeistBold"},
     },
 })
 

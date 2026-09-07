@@ -19,12 +19,19 @@ const FabButton: FC<Props> = ({onPress, icon: Icon, disabled = false}) => {
             backgroundColor="$accent-regular"
             pressStyle={{
                 backgroundColor: "$accent-pressed",
+                scale: 0.94,
             }}
             disabledStyle={{
                 backgroundColor: "$accent-disabled",
             }}
+            style={{
+                shadowColor: "rgba(43, 32, 19, 0.25)",
+                shadowOffset: {width: 0, height: 4},
+                shadowRadius: 8,
+                shadowOpacity: 1,
+            }}
         >
-            <Icon fill={disabled ? "#BFBFBF" : "#FFFFFF"}/>
+            <Icon fill={disabled ? "#C9AE87" : "#FFFFFF"}/>
         </Button>
     )
 }

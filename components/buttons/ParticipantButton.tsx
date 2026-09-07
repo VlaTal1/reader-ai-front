@@ -4,6 +4,7 @@ import Feather from "@expo/vector-icons/Feather";
 
 import {CustomText} from "@/components/CustomText";
 import {Participant} from "@/types/Paticipant";
+import {getAvatarColor, getInitial} from "@/constants/avatarPalette";
 
 type Props = {
     participant: Participant;
@@ -12,23 +13,8 @@ type Props = {
 } & GetProps<typeof ThemeableStack>;
 
 const ParticipantButton: FC<Props> = ({participant, onPress, disabled = false, ...props}) => {
-    const themeColor = useMemo(() => {
-        const colors = [
-            { bg: "#E0F2FE", text: "#0284C7" }, // Light Blue
-            { bg: "#F3E8FF", text: "#7E22CE" }, // Lavender/Purple
-            { bg: "#FCE7F3", text: "#BE185D" }, // Soft Pink
-            { bg: "#FEF3C7", text: "#B45309" }, // Soft Amber
-            { bg: "#D1FAE5", text: "#047857" }, // Mint Green
-        ];
-        const nameCode = participant.name
-            ? participant.name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0)
-            : 0;
-        return colors[nameCode % colors.length];
-    }, [participant.name]);
-
-    const initial = useMemo(() => {
-        return participant.name ? participant.name.charAt(0).toUpperCase() : "?";
-    }, [participant.name]);
+    const themeColor = useMemo(() => getAvatarColor(participant.name), [participant.name]);
+    const initial = useMemo(() => getInitial(participant.name), [participant.name]);
 
     return (
         <ThemeableStack
@@ -42,13 +28,19 @@ const ParticipantButton: FC<Props> = ({participant, onPress, disabled = false, .
         >
             <XStack
                 backgroundColor="#FFFFFF"
-                borderRadius={16}
+                borderRadius={20}
                 padding={12}
                 alignItems="center"
                 justifyContent="space-between"
                 borderWidth={1}
                 borderColor="$gray-85"
                 gap={12}
+                style={{
+                    shadowColor: "rgba(43, 32, 19, 0.08)",
+                    shadowOffset: {width: 0, height: 2},
+                    shadowRadius: 6,
+                    shadowOpacity: 1,
+                }}
             >
                 <XStack alignItems="center" gap={12} flex={1}>
                     <View
@@ -71,7 +63,7 @@ const ParticipantButton: FC<Props> = ({participant, onPress, disabled = false, .
                         {participant.name}
                     </CustomText>
                 </XStack>
-                <Feather name="chevron-right" size={16} color="#94A3B8" />
+                <Feather name="chevron-right" size={16} color="#A68A63" />
             </XStack>
         </ThemeableStack>
     );

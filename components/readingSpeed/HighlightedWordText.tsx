@@ -5,10 +5,10 @@ import {CustomText} from "@/components/CustomText";
 import {ReferenceWord, WordStatus} from "@/types/ReadingSpeed";
 
 const STATUS_COLORS: Record<WordStatus, string> = {
-    correct: "#10B981",
+    correct: "#3F8A5D",
     error: "$error-primary",
     skipped: "$gray-60",
-    not_in_vocabulary: "#1E3A8A",
+    not_in_vocabulary: "#2F6F62",
 };
 
 const PENDING_COLOR = "$gray-20";

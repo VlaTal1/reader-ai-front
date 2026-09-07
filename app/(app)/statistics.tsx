@@ -159,14 +159,22 @@ const StatisticsView = () => {
                             onChange={changeTab}
                         />
                         <YStack
-                            borderRadius={20}
+                            borderRadius={24}
                             paddingVertical={20}
                             backgroundColor="$gray-100"
+                            borderWidth={1}
+                            borderColor="$gray-85"
                             height="100%"
                             flex={1}
+                            style={{
+                                shadowColor: "rgba(43, 32, 19, 0.06)",
+                                shadowOffset: {width: 0, height: 3},
+                                shadowRadius: 8,
+                                shadowOpacity: 1,
+                            }}
                         >
                             {getAvgGradeApi.loading || !avgData ? (
-                                <ActivityIndicator size="large" color="blue"/>
+                                <ActivityIndicator size="large" color="#CB5A2E"/>
                             ) : (
                                 <StatisticsChart
                                     avgData={avgData}

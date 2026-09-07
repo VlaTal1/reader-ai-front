@@ -67,7 +67,7 @@ const Input: FC<Props> = (
                 flexDirection="row"
                 alignItems="center"
                 backgroundColor={isSearchInput ? "$gray-100" : (disabled ? "$gray-85" : "$gray-93")}
-                borderRadius={12}
+                borderRadius={16}
                 borderWidth={errorMessage ? 1 : 0}
                 borderColor="$error-primary"
             >

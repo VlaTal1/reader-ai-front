@@ -175,7 +175,7 @@ const ReadingSpeed = () => {
 
                     {phase === "connecting" && (
                         <YStack flex={1} justifyContent="center" alignItems="center">
-                            <ActivityIndicator size="large" color="#6366F1"/>
+                            <ActivityIndicator size="large" color="#CB5A2E"/>
                         </YStack>
                     )}
 
@@ -202,11 +202,17 @@ const ReadingSpeed = () => {
                         <YStack flex={1} gap={16} justifyContent="center">
                             <YStack
                                 backgroundColor="#FFFFFF"
-                                borderRadius={24}
+                                borderRadius={28}
                                 padding={24}
                                 borderWidth={1}
                                 borderColor="$gray-85"
                                 gap={12}
+                                style={{
+                                    shadowColor: "rgba(43, 32, 19, 0.08)",
+                                    shadowOffset: {width: 0, height: 4},
+                                    shadowRadius: 10,
+                                    shadowOpacity: 1,
+                                }}
                             >
                                 <XStack justifyContent="space-between">
                                     <CustomText size="p1Regular" color="$gray-40">

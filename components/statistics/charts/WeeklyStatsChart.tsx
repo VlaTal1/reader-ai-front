@@ -53,7 +53,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
                 label: formatWeekForDisplay(week),
                 weekKey: week,
                 value: stats.totalPagesRead,
-                frontColor: "#10B981",
+                frontColor: "#3F8A5D",
                 minutes: Math.round(stats.totalReadingTimeMinutes),
                 rating: Number(stats.averageRating.toFixed(1)),
                 topLabelComponent: () => (
@@ -67,7 +67,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             return {
                 label: formatWeekForDisplay(week),
                 value: Math.round(stats.totalReadingTimeMinutes),
-                frontColor: "#3B82F6",
+                frontColor: "#2F6F62",
                 topLabelComponent: () => (
                     <Text style={styles.topLabel}>{Math.round(stats.totalReadingTimeMinutes)}</Text>
                 ),
@@ -79,7 +79,7 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
             return {
                 label: formatWeekForDisplay(week),
                 value: stats.averageRating,
-                frontColor: "#F59E0B",
+                frontColor: "#D69E2E",
                 topLabelComponent: () => (
                     <Text style={styles.topLabel}>{stats.averageRating.toFixed(1)}</Text>
                 ),
@@ -186,14 +186,14 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
     const renderSummaryCards = () => (
         <View style={styles.summaryContainer}>
             <View style={styles.summaryCards}>
-                <View style={[styles.summaryCard, {backgroundColor: "#ECFDF5"}]}>
-                    <Text style={[styles.summaryValue, {color: "#10B981"}]}>
+                <View style={[styles.summaryCard, {backgroundColor: "#E7F3EA"}]}>
+                    <Text style={[styles.summaryValue, {color: "#3F8A5D"}]}>
                         {summaryData.totalPages}
                     </Text>
                     <Text style={styles.summaryLabel}>{i18n.t("total_pages")}</Text>
                 </View>
-                <View style={[styles.summaryCard, {backgroundColor: "#EFF6FF"}]}>
-                    <Text style={[styles.summaryValue, {color: "#3B82F6"}]}>
+                <View style={[styles.summaryCard, {backgroundColor: "#E1F0EA"}]}>
+                    <Text style={[styles.summaryValue, {color: "#2F6F62"}]}>
                         {summaryData.totalMinutes}
                     </Text>
                     <Text style={styles.summaryLabel}>{i18n.t("total_minutes")}</Text>
@@ -234,14 +234,14 @@ const WeeklyStatsChart: React.FC<Props> = ({data}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F9F9F9",
+        backgroundColor: "#FBF6EC",
     },
     pageTitle: {
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 20,
         marginTop: 10,
-        color: "#333",
+        color: "#3A2E20",
         textAlign: "center",
         paddingHorizontal: 16,
     },
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     selectorTitle: {
         fontSize: 16,
         marginBottom: 10,
-        color: "#333",
+        color: "#3A2E20",
         fontWeight: "600",
     },
     participantButtons: {
@@ -264,18 +264,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 10,
         borderRadius: 20,
-        backgroundColor: "#F0F0F0",
+        backgroundColor: "#F3E7CE",
         borderWidth: 1,
-        borderColor: "#E0E0E0",
+        borderColor: "#E8DCC3",
     },
     selectedParticipantButton: {
-        backgroundColor: "#5E81F4",
-        borderColor: "#5E81F4",
+        backgroundColor: "#CB5A2E",
+        borderColor: "#CB5A2E",
     },
     participantButtonText: {
         fontSize: 14,
         fontWeight: "500",
-        color: "#333",
+        color: "#3A2E20",
     },
     selectedParticipantButtonText: {
         color: "#FFFFFF",
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     summaryTitle: {
         fontSize: 18,
         fontWeight: "600",
-        color: "#333",
+        color: "#3A2E20",
         marginBottom: 12,
     },
     summaryCards: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     },
     summaryLabel: {
         fontSize: 12,
-        color: "#666",
+        color: "#7A6248",
         textAlign: "center",
     },
     chartsContainer: {
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 16,
         marginHorizontal: 16,
-        shadowColor: "#000",
+        shadowColor: "#1A1209",
         shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.1,
         shadowRadius: 3.84,
@@ -330,22 +330,22 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
         marginBottom: 15,
-        color: "#333",
+        color: "#3A2E20",
     },
     axisText: {
         fontSize: 10,
-        color: "#666",
+        color: "#7A6248",
         fontWeight: "500",
     },
     topLabel: {
         fontSize: 10,
-        color: "#333",
+        color: "#3A2E20",
         fontWeight: "600",
         textAlign: "center",
     },
     noDataText: {
         fontSize: 14,
-        color: "#888888",
+        color: "#8A7454",
         textAlign: "center",
         marginVertical: 20,
     },

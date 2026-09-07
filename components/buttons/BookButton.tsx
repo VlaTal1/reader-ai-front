@@ -24,23 +24,29 @@ const BookButton: FC<Props> = ({book, onPress, disabled = false, ...props}) => {
         >
             <XStack
                 backgroundColor="#FFFFFF"
-                borderRadius={16}
+                borderRadius={20}
                 padding={12}
                 alignItems="center"
                 justifyContent="space-between"
                 borderWidth={1}
                 borderColor="$gray-85"
                 gap={12}
+                style={{
+                    shadowColor: "rgba(43, 32, 19, 0.06)",
+                    shadowOffset: {width: 0, height: 2},
+                    shadowRadius: 6,
+                    shadowOpacity: 1,
+                }}
             >
                 <XStack alignItems="center" gap={12} flex={1}>
                     <View
-                        backgroundColor="#EEF2F6"
+                        backgroundColor="#FBEAD9"
                         padding={10}
                         borderRadius={12}
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Feather name="book-open" size={20} color="#6366F1" />
+                        <Feather name="book-open" size={20} color="#CB5A2E" />
                     </View>
                     <YStack gap={2} flex={1}>
                         <CustomText size="h5Medium" color="$gray-20" numberOfLines={1}>
@@ -51,7 +57,7 @@ const BookButton: FC<Props> = ({book, onPress, disabled = false, ...props}) => {
                         </CustomText>
                     </YStack>
                 </XStack>
-                <Feather name="chevron-right" size={16} color="#94A3B8" />
+                <Feather name="chevron-right" size={16} color="#A68A63" />
             </XStack>
         </ThemeableStack>
     );

@@ -111,7 +111,7 @@ const BookDetails = () => {
                         </XStack>
                     </Header>
                     <YStack flex={1} justifyContent="center" alignItems="center">
-                        <ActivityIndicator size="large" color="#0000ff"/>
+                        <ActivityIndicator size="large" color="#CB5A2E"/>
                     </YStack>
                 </YStack>
             </>
@@ -138,28 +138,28 @@ const BookDetails = () => {
                     {/* Book Cover Card */}
                     <YStack
                         backgroundColor="#FFFFFF"
-                        borderRadius={24}
+                        borderRadius={28}
                         padding={24}
                         alignItems="center"
                         borderWidth={1}
                         borderColor="$gray-85"
                         gap={16}
                         style={{
-                            shadowColor: "rgba(0, 0, 0, 0.02)",
+                            shadowColor: "rgba(43, 32, 19, 0.08)",
                             shadowOffset: {width: 0, height: 4},
-                            shadowRadius: 8,
-                            shadowOpacity: 0.1,
+                            shadowRadius: 10,
+                            shadowOpacity: 1,
                         }}
                     >
                         <View
                             width={64}
                             height={64}
                             borderRadius={32}
-                            backgroundColor="#EEF2F6"
+                            backgroundColor="#FBEAD9"
                             alignItems="center"
                             justifyContent="center"
                         >
-                            <Feather name="book-open" size={32} color="#6366F1" />
+                            <Feather name="book-open" size={32} color="#CB5A2E" />
                         </View>
                         <YStack alignItems="center" gap={4}>
                             <CustomText size="h3Medium" color="$gray-20" textAlign="center">
@@ -172,10 +172,10 @@ const BookDetails = () => {
                         
                         {/* Book Metadata Badge */}
                         <XStack
-                            backgroundColor="#F1F5F9"
+                            backgroundColor="#F3E7CE"
                             paddingHorizontal={10}
                             paddingVertical={4}
-                            borderRadius={8}
+                            borderRadius={999}
                         >
                             <CustomText size="p3Medium" color="$gray-40">
                                 PDF Document

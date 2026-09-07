@@ -18,20 +18,20 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
         switch (test.completed) {
             case CompleteStatus.COMPLETED:
                 return {
-                    bg: "#ECFDF5",
-                    text: "#059669",
+                    bg: "#E7F3EA",
+                    text: "#2F6B45",
                     label: i18n.t("COMPLETED") || "Completed",
                 };
             case CompleteStatus.IN_PROGRESS:
                 return {
-                    bg: "#FFFBEB",
-                    text: "#D97706",
+                    bg: "#FBF0D9",
+                    text: "#B07A1E",
                     label: i18n.t("IN_PROGRESS") || "In Progress",
                 };
             default:
                 return {
-                    bg: "#F8FAFC",
-                    text: "#64748B",
+                    bg: "#FBF6EC",
+                    text: "#7A6248",
                     label: i18n.t("NOT_STARTED") || "Not Started",
                 };
         }
@@ -49,11 +49,17 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
         >
             <YStack
                 backgroundColor="#FFFFFF"
-                borderRadius={16}
+                borderRadius={20}
                 padding={16}
                 borderWidth={1}
                 borderColor="$gray-85"
                 gap={12}
+                style={{
+                    shadowColor: "rgba(43, 32, 19, 0.06)",
+                    shadowOffset: {width: 0, height: 2},
+                    shadowRadius: 6,
+                    shadowOpacity: 1,
+                }}
             >
                 <XStack justifyContent="space-between" alignItems="flex-start" gap={8}>
                     <YStack gap={2} flex={1}>
@@ -66,9 +72,9 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
                     </YStack>
                     <XStack
                         backgroundColor={statusDetails.bg}
-                        paddingHorizontal={8}
+                        paddingHorizontal={10}
                         paddingVertical={4}
-                        borderRadius={8}
+                        borderRadius={999}
                         alignItems="center"
                     >
                         <CustomText
@@ -83,13 +89,13 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
 
                 <XStack gap={16} paddingVertical={4} borderTopWidth={1} borderTopColor="$gray-93" paddingTop={10}>
                     <XStack alignItems="center" gap={6}>
-                        <Feather name="book-open" size={14} color="#94A3B8" />
+                        <Feather name="book-open" size={14} color="#A68A63" />
                         <CustomText size="p2Regular" color="$gray-40">
                             {i18n.t("pages_range", {start: test.startPage, end: test.endPage})}
                         </CustomText>
                     </XStack>
                     <XStack alignItems="center" gap={6}>
-                        <Feather name="help-circle" size={14} color="#94A3B8" />
+                        <Feather name="help-circle" size={14} color="#A68A63" />
                         <CustomText size="p2Regular" color="$gray-40">
                             {i18n.t("test_button_questions_amount", {questionsAmount: test.questionsAmount})}
                         </CustomText>
@@ -100,14 +106,14 @@ const TestButton: FC<Props> = ({test, onPress, disabled = false, ...props}) => {
                     <XStack
                         justifyContent="space-between"
                         alignItems="center"
-                        backgroundColor="#F5F3FF"
+                        backgroundColor="#FBEAD9"
                         padding={10}
-                        borderRadius={10}
+                        borderRadius={14}
                     >
-                        <CustomText size="p2Medium" color="#6366F1">
+                        <CustomText size="p2Medium" color="#A8451F">
                             {i18n.t("test_status") || "Status:"} {i18n.t("COMPLETED")}
                         </CustomText>
-                        <CustomText size="p2Medium" color="#6366F1">
+                        <CustomText size="p2Medium" color="#A8451F">
                             {i18n.t("result_grade", {grade: test.grade})}
                         </CustomText>
                     </XStack>

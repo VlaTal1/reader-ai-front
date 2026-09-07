@@ -26,10 +26,10 @@ const Results = () => {
 
     // Calculate score details
     const scoreColor = useMemo(() => {
-        if (!currentTest) return "#6366F1";
-        if (currentTest.grade >= 8) return "#10B981"; // Emerald
-        if (currentTest.grade >= 5) return "#F59E0B"; // Amber
-        return "#EF4444"; // Red
+        if (!currentTest) return "#CB5A2E";
+        if (currentTest.grade >= 8) return "#3F8A5D"; // Emerald
+        if (currentTest.grade >= 5) return "#D69E2E"; // Amber
+        return "#C1443A"; // Red
     }, [currentTest]);
 
     const celebrationMessage = useMemo(() => {
@@ -50,7 +50,7 @@ const Results = () => {
                 <CustomStackScreen/>
                 <YStack flex={1}>
                     <YStack flex={1} justifyContent="center" alignItems="center">
-                        <ActivityIndicator size="large" color="#6366F1"/>
+                        <ActivityIndicator size="large" color="#CB5A2E"/>
                     </YStack>
                 </YStack>
             </>
@@ -103,27 +103,27 @@ const Results = () => {
                 {/* Reward Card / Summary */}
                 <YStack
                     backgroundColor="#FFFFFF"
-                    borderRadius={20}
+                    borderRadius={24}
                     padding={20}
                     borderWidth={1}
                     borderColor="$gray-85"
                     width="100%"
                     gap={14}
                     style={{
-                        shadowColor: "rgba(0, 0, 0, 0.02)",
+                        shadowColor: "rgba(43, 32, 19, 0.08)",
                         shadowOffset: {width: 0, height: 4},
                         shadowRadius: 8,
-                        shadowOpacity: 0.1,
+                        shadowOpacity: 1,
                     }}
                 >
                     {/* Book name and details */}
                     <XStack gap={12} alignItems="center" borderBottomWidth={1} borderBottomColor="$gray-93" paddingBottom={12}>
                         <View
-                            backgroundColor="#EEF2F6"
+                            backgroundColor="#FBEAD9"
                             padding={8}
-                            borderRadius={10}
+                            borderRadius={14}
                         >
-                            <Feather name="book" size={20} color="#6366F1" />
+                            <Feather name="book" size={20} color="#CB5A2E" />
                         </View>
                         <YStack flex={1} gap={2}>
                             <CustomText size="p2Medium" color="$gray-20" numberOfLines={1}>
@@ -136,24 +136,14 @@ const Results = () => {
                     </XStack>
 
                     {/* Score stats */}
-                    <XStack justifyContent="space-between" alignItems="center">
-                        <CustomText size="p2Regular" color="$gray-40">
-                            Correct Answers
-                        </CustomText>
-                        <CustomText size="p2Medium" color="$gray-20">
-                            {`${currentTest.correctAnswers} answers`}
-                        </CustomText>
-                    </XStack>
+                    <CustomText size="p2Medium" color="$gray-20">
+                        {i18n.t("correct_answer_amount", {amount: currentTest.correctAnswers})}
+                    </CustomText>
 
                     {/* Progress details */}
-                    <XStack justifyContent="space-between" alignItems="center">
-                        <CustomText size="p2Regular" color="$gray-40">
-                            Pages range
-                        </CustomText>
-                        <CustomText size="p2Medium" color="$gray-20">
-                            {`Pages ${currentTest.startPage} - ${currentTest.endPage}`}
-                        </CustomText>
-                    </XStack>
+                    <CustomText size="p2Medium" color="$gray-20">
+                        {i18n.t("pages_range", {start: currentTest.startPage, end: currentTest.endPage})}
+                    </CustomText>
                 </YStack>
 
             </YStack>

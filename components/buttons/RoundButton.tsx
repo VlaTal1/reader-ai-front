@@ -17,6 +17,7 @@ const RoundButton: FC<Props> = ({icon, onPress, disabled = false}) => {
             disabled={disabled}
             pressStyle={{
                 backgroundColor: "$accent-pressed",
+                scale: 0.94,
             }}
             disabledStyle={{
                 backgroundColor: "$accent-disabled",

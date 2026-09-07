@@ -28,15 +28,16 @@ const GoogleSignInButton = ({onPress, isLoading}: {
         <XStack
             backgroundColor="transparent"
             height="auto"
-            borderRadius={12}
+            borderRadius={999}
             padding={12}
             borderColor="$gray-75"
+            borderWidth={1.5}
             pressStyle={{
                 borderColor: "$gray-20",
                 backgroundColor: "transparent",
+                scale: 0.97,
             }}
             disabledStyle={{borderColor: "$gray-75"}}
-            borderWidth={1}
             paddingVertical={12}
             paddingHorizontal={16}
             justifyContent="center"
@@ -283,7 +284,7 @@ const Login = () => {
     if (isLoading || localLoading) {
         return (
             <YStack flex={1} justifyContent="center" alignItems="center">
-                <ActivityIndicator size="large" color="#0000ff"/>
+                <ActivityIndicator size="large" color="#CB5A2E"/>
             </YStack>
         );
     }
@@ -415,8 +416,8 @@ const Login = () => {
                 <YStack
                     backgroundColor="white"
                     paddingHorizontal={24}
-                    borderTopLeftRadius={30}
-                    borderTopRightRadius={30}
+                    borderTopLeftRadius={32}
+                    borderTopRightRadius={32}
                     width="100%"
                     paddingBottom={24}
                 >
@@ -462,8 +463,8 @@ const Login = () => {
             <YStack
                 backgroundColor="white"
                 paddingHorizontal={24}
-                borderTopLeftRadius={30}
-                borderTopRightRadius={30}
+                borderTopLeftRadius={32}
+                borderTopRightRadius={32}
                 width="100%"
                 paddingBottom={24}
             >

@@ -172,7 +172,6 @@ export const SupabaseAuthProvider = ({children}: Props) => {
         // Listening for changes in the session
         logEvent("Setting up auth state change listener");
         const {data: authListener} = supabase.auth.onAuthStateChange(async (event, newSession) => {
-            setIsLoading(true);
             // Ignore SIGNED_OUT events during initialization or immediately after SIGNED_IN
             if (event === "SIGNED_OUT" && !intentionalSignOut.current && (isInitializing.current || user !== null)) {
                 logEvent("Ignoring automatic SIGNED_OUT event during initialization or after recent sign-in", {
@@ -181,6 +180,8 @@ export const SupabaseAuthProvider = ({children}: Props) => {
                 });
                 return;
             }
+
+            setIsLoading(true);
 
             logEvent(`Auth state changed: ${event}`, {
                 hasSession: !!newSession,

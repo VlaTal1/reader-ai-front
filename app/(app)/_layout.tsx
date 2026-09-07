@@ -15,7 +15,7 @@ export default function App() {
             <>
                 <CustomStackScreen/>
                 <YStack flex={1} justifyContent="center" alignItems="center">
-                    <ActivityIndicator size="large" color="#0000ff"/>
+                    <ActivityIndicator size="large" color="#CB5A2E"/>
                 </YStack>
                 <Redirect href="/login"/>
             </>
@@ -27,7 +27,7 @@ export default function App() {
             <>
                 <CustomStackScreen/>
                 <YStack flex={1} justifyContent="center" alignItems="center">
-                    <ActivityIndicator size="large" color="#0000ff"/>
+                    <ActivityIndicator size="large" color="#CB5A2E"/>
                 </YStack>
             </>
         );

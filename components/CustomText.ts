@@ -6,14 +6,14 @@ const CustomText = styled(Text, {
             h1: {
                 fontFamily: "$heading",
                 fontSize: "$8",
-                fontWeight: "400",
+                fontWeight: "700",
                 lineHeight: "$8",
                 paddingTop: 6,
             },
             h2: {
                 fontFamily: "$heading",
                 fontSize: "$7",
-                fontWeight: "500",
+                fontWeight: "600",
                 lineHeight: "$7",
                 paddingTop: 4,
             },
@@ -27,7 +27,7 @@ const CustomText = styled(Text, {
             h3Medium: {
                 fontFamily: "$heading",
                 fontSize: "$6",
-                fontWeight: "500",
+                fontWeight: "600",
                 lineHeight: "$6",
                 paddingTop: 2,
             },

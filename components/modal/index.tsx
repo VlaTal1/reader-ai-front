@@ -69,8 +69,8 @@ const BottomSheetModal: FC<ModalProps> = (
                 paddingTop={isSwipeDisable ? 22 : 10}
                 paddingHorizontal={22}
                 paddingBottom={22}
-                borderTopLeftRadius={!isKeyboardVisible ? 20 : 0}
-                borderTopRightRadius={!isKeyboardVisible ? 20 : 0}
+                borderTopLeftRadius={!isKeyboardVisible ? 28 : 0}
+                borderTopRightRadius={!isKeyboardVisible ? 28 : 0}
                 gap={24}
                 maxHeight={isKeyboardVisible ? "100%" : "90%"}
                 height={height}
@@ -80,7 +80,7 @@ const BottomSheetModal: FC<ModalProps> = (
                         width={65}
                         height={5}
                         borderRadius={100}
-                        backgroundColor="#CAC8D0"
+                        backgroundColor="#D8C9AC"
                         alignSelf="center"
                     />
                 }

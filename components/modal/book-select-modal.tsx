@@ -86,7 +86,7 @@ const BookSelectModal: FC<Props> = ({onClose, isOpen, onSelectId, onSelectBook})
             height={availableContentHeight}
         >
             {fetchBooksApi.loading || !books ? (
-                <ActivityIndicator size="small" color="blue"/>
+                <ActivityIndicator size="small" color="#CB5A2E"/>
             ) : (
                 books.map((book) => (
                     <ListButton

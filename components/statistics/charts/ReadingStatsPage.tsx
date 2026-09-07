@@ -60,16 +60,16 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         spacing: CHART_WIDTH / 4,
         endSpacing: 20,
         showDataPointsForAllPoints: true,
-        dataPointsColor: "#00BFA6",
+        dataPointsColor: "#2F6F62",
         dataPointsRadius: 5,
         thickness: 3,
         hideRules: false,
-        rulesColor: "#E7E7E7",
+        rulesColor: "#E8DCC3",
         rulesType: "solid",
-        xAxisColor: "#E7E7E7",
-        yAxisColor: "#E7E7E7",
+        xAxisColor: "#E8DCC3",
+        yAxisColor: "#E8DCC3",
         showVerticalLines: true,
-        verticalLinesColor: "#E7E7E7",
+        verticalLinesColor: "#E8DCC3",
         verticalLinesType: "dashed",
         dashWidth: 5,
         dashGap: 5,
@@ -80,7 +80,7 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         hideXAxisText: false,
         pointerConfig: {
             radius: 6,
-            pointerColor: "#00BFA6",
+            pointerColor: "#2F6F62",
             pointerLabelWidth: 100,
             pointerLabelHeight: 30,
         },
@@ -156,8 +156,8 @@ const ReadingStatsPage: React.FC<Props> = ({data}) => {
         <SafeAreaView style={styles.container}>
             {renderParticipantSelector()}
             <View style={styles.chartsContainer}>
-                {renderChart(i18n.t("reading_time"), readingTimeData, "#00BFA6")}
-                {renderChart(i18n.t("pages"), pagesReadData, "#5E81F4")}
+                {renderChart(i18n.t("reading_time"), readingTimeData, "#2F6F62")}
+                {renderChart(i18n.t("pages"), pagesReadData, "#3F8A5D")}
             </View>
         </SafeAreaView>
     );
@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: "#F9F9F9",
+        backgroundColor: "#FBF6EC",
     },
     pageTitle: {
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 20,
-        color: "#333",
+        color: "#3A2E20",
         textAlign: "center",
     },
     selectorContainer: {
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     selectorTitle: {
         fontSize: 16,
         marginBottom: 10,
-        color: "#333",
+        color: "#3A2E20",
     },
     participantButtons: {
         flexDirection: "row",
@@ -193,18 +193,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 10,
         borderRadius: 20,
-        backgroundColor: "#F0F0F0",
+        backgroundColor: "#F3E7CE",
         borderWidth: 1,
-        borderColor: "#E0E0E0",
+        borderColor: "#E8DCC3",
     },
     selectedParticipantButton: {
-        backgroundColor: "#5E81F4",
-        borderColor: "#5E81F4",
+        backgroundColor: "#CB5A2E",
+        borderColor: "#CB5A2E",
     },
     participantButtonText: {
         fontSize: 14,
         fontWeight: "500",
-        color: "#333",
+        color: "#3A2E20",
     },
     selectedParticipantButtonText: {
         color: "#FFFFFF",
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderRadius: 12,
         padding: 16,
-        shadowColor: "#000",
+        shadowColor: "#1A1209",
         shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.1,
         shadowRadius: 3.84,
@@ -227,19 +227,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
         marginBottom: 15,
-        color: "#333",
+        color: "#3A2E20",
     },
     chartScrollContent: {
         paddingVertical: 10,
     },
     axisText: {
         fontSize: 12,
-        color: "#333333",
+        color: "#3A2E20",
         fontWeight: "500",
     },
     noDataText: {
         fontSize: 14,
-        color: "#888888",
+        color: "#8A7454",
         textAlign: "center",
         marginVertical: 20,
     },
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         padding: 4,
         borderRadius: 6,
         borderWidth: 1,
-        borderColor: "#ccc",
+        borderColor: "#D8C9AC",
     },
     pointerLabelText: {
         fontSize: 16,

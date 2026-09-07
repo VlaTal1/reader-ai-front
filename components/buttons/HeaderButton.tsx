@@ -16,6 +16,7 @@ const HeaderButton: FC<Props> = ({onPress, backgroundColor, color, text, disable
         onPress={onPress}
         backgroundColor={backgroundColor}
         height="min-content"
+        borderRadius={999}
         paddingVertical={9}
         paddingHorizontal={16}
         pressStyle={{opacity: 0.5, backgroundColor: "transparent"}}

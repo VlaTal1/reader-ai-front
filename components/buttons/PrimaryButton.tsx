@@ -39,17 +39,17 @@ const PrimaryButton: FC<Props> = (
             color="$accent-regular"
             width={width}
             height="auto"
-            borderRadius={16}
-            padding={14}
-            pressStyle={{backgroundColor: "$accent-pressed"}}
+            borderRadius={999}
+            padding={16}
+            pressStyle={{backgroundColor: "$accent-pressed", scale: 0.97}}
             disabledStyle={{backgroundColor: "$accent-disabled"}}
             flex={flex}
         >
             {Icon && iconPosition === "left" ? (
                 <Icon
                     width={24} height={24}
-                    {...(iconFillType === "fill" && {fill: disabled ? "#BFBFBF" : "#FFFFFF"})}
-                    {...(iconFillType === "stroke" && {stroke: disabled ? "#BFBFBF" : "#FFFFFF"})}
+                    {...(iconFillType === "fill" && {fill: disabled ? "#C9AE87" : "#FFFFFF"})}
+                    {...(iconFillType === "stroke" && {stroke: disabled ? "#C9AE87" : "#FFFFFF"})}
                 />
             ) : null}
             {textBlock
@@ -57,7 +57,7 @@ const PrimaryButton: FC<Props> = (
                 : text ? (
                     <CustomText
                         color={disabled ? "$gray-75" : "$gray-100"}
-                        size="p1Regular"
+                        size="p1Medium"
                         textAlign="center"
                         paddingLeft={Icon && iconPosition === "right" ? 8 : 0}
                         paddingRight={Icon && iconPosition === "left" ? 8 : 0}
@@ -69,8 +69,8 @@ const PrimaryButton: FC<Props> = (
             {Icon && iconPosition === "right" ? (
                 <Icon
                     width={24} height={24}
-                    {...(iconFillType === "fill" && {fill: disabled ? "#BFBFBF" : "#FFFFFF"})}
-                    {...(iconFillType === "stroke" && {stroke: disabled ? "#BFBFBF" : "#FFFFFF"})}
+                    {...(iconFillType === "fill" && {fill: disabled ? "#C9AE87" : "#FFFFFF"})}
+                    {...(iconFillType === "stroke" && {stroke: disabled ? "#C9AE87" : "#FFFFFF"})}
                 />
             ) : null}
         </Button>

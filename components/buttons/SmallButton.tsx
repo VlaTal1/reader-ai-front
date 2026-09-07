@@ -23,7 +23,7 @@ const styles = {
         textColor: "$gray-100",
         textDisabledColor: "$gray-75",
         iconColor: "#FFFFFF",
-        iconDisabledColor: "#BFBFBF",
+        iconDisabledColor: "#C9AE87",
     },
     secondary: {
         background: null,
@@ -33,8 +33,8 @@ const styles = {
         },
         textColor: "$gray-20",
         textDisabledColor: "$gray-60",
-        iconColor: "#333333",
-        iconDisabledColor: "#999999",
+        iconColor: "#3A2E20",
+        iconDisabledColor: "#A68A63",
     },
     error: {
         background: {
@@ -48,8 +48,8 @@ const styles = {
         },
         textColor: "$error-primary",
         textDisabledColor: "$error-primary",
-        iconColor: "#D65C5C",
-        iconDisabledColor: "#D65C5C",
+        iconColor: "#C1443A",
+        iconDisabledColor: "#C1443A",
     },
 }
 
@@ -66,13 +66,14 @@ const SmallButton: FC<Props> = ({text, onPress, icon: Icon, variant, disabled = 
             pressStyle={{
                 backgroundColor: appropriateStyles.background ? appropriateStyles.background.activeColor : "transparent",
                 borderColor: appropriateStyles.border ? appropriateStyles.border.activeColor : "transparent",
+                scale: 0.96,
             }}
             onPress={onPress}
             disabled={disabled}
             height="auto"
-            borderRadius={8}
-            paddingHorizontal={9}
-            paddingVertical={3}
+            borderRadius={999}
+            paddingHorizontal={12}
+            paddingVertical={5}
         >
             <XStack gap={4} alignItems="center">
                 {text && (

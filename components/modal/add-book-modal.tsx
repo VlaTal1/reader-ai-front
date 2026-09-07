@@ -184,7 +184,7 @@ const AddBookModal: FC<Props> = ({onClose, isOpen, onSave}) => {
                 height={availableContentHeight}
             >
                 {uploadBookApi.loading ? (
-                    <ActivityIndicator size="small" color="blue"/>
+                    <ActivityIndicator size="small" color="#CB5A2E"/>
                 ) : (
                     <ScrollView contentContainerStyle={{flexGrow: 1}}>
                         <YStack gap={12}>

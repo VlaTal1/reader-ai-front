@@ -286,7 +286,7 @@ const Reader = () => {
                 <YStack flex={1}>
                     {pdfState.isLoading && (
                         <YStack flex={1} justifyContent="center" alignItems="center">
-                            <ActivityIndicator size="large" color="blue"/>
+                            <ActivityIndicator size="large" color="#CB5A2E"/>
                         </YStack>
                     )}
 

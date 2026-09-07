@@ -25,7 +25,7 @@ const AvgGradeChart: React.FC<Props> = ({
                                             height = 300,
                                             width = 300,
                                             maxGrade = 10,
-                                            gradientColors = ["#FF6B6B", "#FFD166", "#06D6A0"],
+                                            gradientColors = ["#C1443A", "#D69E2E", "#3F8A5D"],
                                             showCompletionRate = true,
                                         }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -185,7 +185,7 @@ const AvgGradeChart: React.FC<Props> = ({
                     barBorderRadius={4}
                     barWidth={30}
                     xAxisThickness={1}
-                    xAxisColor="#BFBFBF"
+                    xAxisColor="#C9AE87"
                     xAxisType="dashed"
                     xAxisLabelTextStyle={styles.axisLabel}
                     xAxisLabelsAtBottom={true}
@@ -196,7 +196,7 @@ const AvgGradeChart: React.FC<Props> = ({
                     yAxisLabelWidth={40}
                     maxValue={yAxisMaxValue}
                     noOfSections={numberOfSections}
-                    rulesColor="#BFBFBF"
+                    rulesColor="#C9AE87"
                     rulesType="dashed"
                     showVerticalLines={false}
                     dashWidth={5}
@@ -238,33 +238,33 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 15,
         textAlign: "center",
-        color: "#333",
+        color: "#3A2E20",
     },
     chartContainer: {
         alignItems: "center",
         marginBottom: 20,
     },
     axisLabel: {
-        color: "#999999",
+        color: "#A68A63",
         fontSize: 12,
         fontFamily: "System",
     },
     frontLabelContainer: {
         marginTop: -26,
-        backgroundColor: "rgba(0,0,0,0.1)",
+        backgroundColor: "rgba(43,32,19,0.14)",
         paddingHorizontal: 5,
         paddingVertical: 2,
         borderRadius: 4,
     },
     frontLabelText: {
-        color: "#333333",
+        color: "#3A2E20",
         fontSize: 10,
         fontFamily: "System",
     },
     hint: {
         fontSize: 12,
         fontStyle: "italic",
-        color: "#666",
+        color: "#7A6248",
         textAlign: "center",
         marginBottom: 15,
     },
@@ -274,9 +274,9 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: "#fff",
-        borderRadius: 16,
+        borderRadius: 20,
         padding: 15,
-        shadowColor: "#000",
+        shadowColor: "#1A1209",
         shadowOffset: {
             width: 0,
             height: 4,
@@ -285,17 +285,17 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 2,
         borderWidth: 1,
-        borderColor: "#F1F5F9",
+        borderColor: "#F3E7CE",
     },
     selectedCard: {
-        backgroundColor: "#F8FAFC",
-        borderColor: "#E2E8F0",
+        backgroundColor: "#FBF6EC",
+        borderColor: "#E8DCC3",
     },
     cardName: {
         fontSize: 16,
         fontWeight: "bold",
         marginBottom: 12,
-        color: "#333",
+        color: "#3A2E20",
     },
     cardDetails: {
         gap: 8,
@@ -307,12 +307,12 @@ const styles = StyleSheet.create({
     },
     detailLabel: {
         fontSize: 14,
-        color: "#666",
+        color: "#7A6248",
     },
     detailValue: {
         fontSize: 14,
         fontWeight: "500",
-        color: "#333",
+        color: "#3A2E20",
     },
     gradeValue: {
         fontSize: 16,

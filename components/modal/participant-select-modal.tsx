@@ -89,7 +89,7 @@ const ParticipantSelectModal: FC<Props> = ({onClose, isOpen, onSelectId, onSelec
                 height={availableContentHeight}
             >
                 {fetchAllParticipantApi.loading || !participants ? (
-                    <ActivityIndicator size="small" color="blue"/>
+                    <ActivityIndicator size="small" color="#CB5A2E"/>
                 ) : (
                     participants.map((participant) => (
                         <ListButton

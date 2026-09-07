@@ -9,7 +9,7 @@ type Props = {
 const BottomButtonGroup: React.FC<Props> = ({children, gradientColors}) => {
     return (
         <LinearGradient
-            colors={gradientColors ? gradientColors : ["transparent", "rgba(250, 248, 245, 1)"]}
+            colors={gradientColors ? gradientColors : ["transparent", "rgba(246, 239, 225, 1)"]}
             style={{
                 position: "absolute",
                 bottom: 0,

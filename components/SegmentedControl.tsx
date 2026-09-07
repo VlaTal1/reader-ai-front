@@ -39,7 +39,7 @@ const SegmentedControl: React.FC<Props> = ({options, currentTab, onChange, varia
                 <Animated.View
                     style={[
                         {
-                            backgroundColor: "#6366F1",
+                            backgroundColor: "#CB5A2E",
                             borderRadius: 12,
                             width: `${itemWidth}%`,
                             flex: 1,
